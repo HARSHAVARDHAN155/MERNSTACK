@@ -9,6 +9,7 @@ const DB_NAME = "Harshavardhan_2020101106"
 // routes
 var testAPIRouter = require("./routes/testAPI");
 var UserRouter = require("./routes/Users");
+var VendorRouter =  require("./routes/Vendor");
 // var Buyerdata = require("./routes/Users.js/userregister");
 app.use(cors());
 app.use(bodyParser.json());
@@ -25,6 +26,7 @@ connection.once('open', function() {
 // setup API endpoints
 app.use("/testAPI", testAPIRouter);
 app.use("/user", UserRouter);
+app.use("/vendor", VendorRouter);
 // app.use("/buyer",Buyerdata)
 
 app.listen(PORT, function() {

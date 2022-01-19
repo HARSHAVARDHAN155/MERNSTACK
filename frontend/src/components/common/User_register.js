@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 
 
 
+
 const UserRegister = (props) => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -31,7 +32,7 @@ const UserRegister = (props) => {
     const onChangebatch = (event) => {
         setBatch(event.target.value);
     };
-   
+
 
     const resetInputs = () => {
         setName("");
@@ -65,53 +66,55 @@ const UserRegister = (props) => {
     };
 
     return (
-        <Grid container align={"center"} spacing={3}>
-            <Grid item xs={12}>
-                <TextField
-                    label="Name"
-                    variant="outlined"
-                    value={name}
-                    onChange={onChangeUsername}
-                />
+        <div  className="background">
+            <Grid container align={"center"} spacing={3}>
+                <Grid item xs={12}>
+                    <TextField
+                        label="Name"
+                        variant="outlined"
+                        value={name}
+                        onChange={onChangeUsername}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        label="Email"
+                        variant="outlined"
+                        value={email}
+                        onChange={onChangeEmail}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        label="Contact Number"
+                        variant="outlined"
+                        value={contactNumber}
+                        onChange={onChangeContact}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        label="Age"
+                        variant="outlined"
+                        value={age}
+                        onChange={onChangeAge}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        label="Batch"
+                        variant="outlined"
+                        value={batch}
+                        onChange={onChangebatch}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <Button variant="contained" onClick={onSubmit}>
+                        Register
+                    </Button>
+                </Grid>
             </Grid>
-            <Grid item xs={12}>
-                <TextField
-                    label="Email"
-                    variant="outlined"
-                    value={email}
-                    onChange={onChangeEmail}
-                />
-            </Grid>
-            <Grid item xs={12}>
-                <TextField
-                    label="Contact Number"
-                    variant="outlined"
-                    value={contactNumber}
-                    onChange={onChangeContact}
-                />
-            </Grid>
-            <Grid item xs={12}>
-                <TextField
-                    label="Age"
-                    variant="outlined"
-                    value={age}
-                    onChange={onChangeAge}
-                />
-            </Grid>
-            <Grid item xs={12}>
-                <TextField
-                    label="Batch"
-                    variant="outlined"
-                    value={batch}
-                    onChange={onChangebatch}
-                />
-            </Grid>
-            <Grid item xs={12}>
-                <Button variant="contained" onClick={onSubmit}>
-                    Register
-                </Button>
-            </Grid>
-        </Grid>
+            </div>
     );
 };
 
