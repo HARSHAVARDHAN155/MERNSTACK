@@ -5,10 +5,12 @@ import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
+
 const Navbar = () => {
   const navigate = useNavigate();
 
   return (
+    
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
@@ -24,21 +26,23 @@ const Navbar = () => {
           <Button color="inherit" onClick={() => navigate("/users")}>
             Users
           </Button>
-          <Button color="inherit" onClick={() => navigate("/vendor_register")}>
+          <Button color="inherit" onClick={() => navigate("/allregister")}>
+          REGISTER
+          </Button>
+          {/* <Button color="inherit" onClick={() => navigate("/vendor_register")}>
            Vendor Register
           </Button>
           <Button color="inherit" onClick={() => navigate("/user_register")}>
           Buyer Register
-          </Button>
+          </Button> */}
           <Button color="inherit" onClick={() => navigate("/profile")}>
-            Buyer Login
+             Login
           </Button>
-          <Button color="inherit" onClick={() => navigate("/profile")}>
-            Vendor Login
-          </Button>
+          
         </Toolbar>
       </AppBar>
     </Box>
+   
   );
 };
 

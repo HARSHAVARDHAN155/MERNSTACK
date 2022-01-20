@@ -20,14 +20,6 @@ const VendorSchema = new Schema({
         type:String,
         required: false
     },
-    Opentimings:{
-        type:String,
-        require:false
-    },
-    Closetimings:{
-        type:String,
-        require:false
-    },
     Address:{
         type:String,
         required: false

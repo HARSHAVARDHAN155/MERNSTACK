@@ -31,12 +31,6 @@ const VendorRegister = (props) => {
     const onChangeContact = (event) => {
         setContact(event.target.value);
     };
-    const onChangeOP = (event) => {
-        setopen(event.target.value);
-    };
-    const onChangeCC = (event) => {
-        setclose(event.target.value);
-    };
     const onChangeAD = (event) => {
         setAD(event.target.value);
     };
@@ -47,8 +41,6 @@ const VendorRegister = (props) => {
         setCanteen("");
         setEmail("");
         setContact("");
-        setopen("");
-        setclose("");
         setAD("");
         setDate(null);
     };
@@ -61,8 +53,7 @@ const VendorRegister = (props) => {
            CanteenName:CanteenName,
            email:email,
            contact:contact,
-           Opentimings: Opentimings,
-           Closetimings: Closetimings,
+          
            Address: Address,
            date: Date.now(),
         };
@@ -112,22 +103,7 @@ const VendorRegister = (props) => {
                         onChange={onChangeContact}
                     />
                 </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        label="Opening time"
-                        variant="outlined"
-                        value={Opentimings}
-                        onChange={onChangeOP}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        label="Closing time"
-                        variant="outlined"
-                        value={Closetimings}
-                        onChange={onChangeCC}
-                    />
-                </Grid>
+          
                 <Grid item xs={12}>
                     <TextField
                         label="Address"

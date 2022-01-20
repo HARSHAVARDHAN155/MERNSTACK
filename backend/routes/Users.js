@@ -8,7 +8,7 @@ const Buyer = require("../models/Users1");
 // GET request 
 // Getting all the users
 router.get("/", function(req, res) {
-    User.find(function(err, users) {
+    Buyer.find(function(err, users) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -21,22 +21,22 @@ router.get("/", function(req, res) {
 
 // POST request 
 // Add a user to db
-router.post("/register", (req, res) => {
-    const newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        date: req.body.date
-    });
+// router.post("/register", (req, res) => {
+//     const newUser = new User({
+//         name: req.body.name,
+//         email: req.body.email,
+//         date: req.body.date
+//     });
 
-    newUser.save()
-        .then(user => {
-            res.status(200).json(user);
-        })
-        .catch(err => {
-            res.status(400).send(err);
+//     newUser.save()
+//         .then(user => {
+//             res.status(200).json(user);
+//         })
+//         .catch(err => {
+//             res.status(400).send(err);
             
-        });
-});
+//         });
+// });
 
 router.post("/userregister", (req, res) => {
     const newUser = new Buyer({

@@ -3,7 +3,15 @@ var router = express.Router();
 
 const Vendor = require("../models/Vendor");
 
-
+router.get("/", function(req, res) {
+    Vendor.find(function(err, users) {
+		if (err) {
+			console.log(err);
+		} else {
+			res.json(users);
+		}
+	})
+});
 
 router.post("/vendorregister", (req, res) => {
     const newUser = new Vendor({
@@ -11,8 +19,6 @@ router.post("/vendorregister", (req, res) => {
         CanteenName: req.body.CanteenName,
         email: req.body.email,
         contact: req.body.contact,
-        Openingtimings:req.body.Openingtimings,
-        Closingtimings:req.body.Closingtimings,
         Address: req.body.Address
     });
 

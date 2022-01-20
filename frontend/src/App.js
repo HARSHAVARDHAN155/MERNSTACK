@@ -8,10 +8,12 @@ import Navbar from "./components/templates/Navbar";
 import Profile from "./components/users/Profile";
 import UserRegister from "./components/common/User_register";
 import VendorRegister from "./components/common/Vendor_register";
+import Common_registration from "./components/common/Common_register";
 const Layout = () => {
   return (
     <div>
       <Navbar />
+      
       <div className="container">
         <Outlet />
       </div>
@@ -26,7 +28,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="users" element={<UsersList />} />
-          <Route path="register" element={<Register />} />
+          <Route path="allregister" element={<Common_registration />} />
           <Route path="user_register" element={<UserRegister />} />
           <Route path="vendor_register" element={<VendorRegister />} />
           <Route path="profile" element={<Profile />} />
