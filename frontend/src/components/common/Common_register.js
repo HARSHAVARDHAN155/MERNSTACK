@@ -21,6 +21,7 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import Navbar from "../templates/Navbar";
 
 export default function NestedList() {
     const navigate = useNavigate();
@@ -31,6 +32,8 @@ export default function NestedList() {
   };
 
   return (
+      <div>
+      <Navbar/>
     <div style={{padding:40,marginLeft:400,textAlign:"center"}}>
     <List
       sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
@@ -58,6 +61,7 @@ export default function NestedList() {
         </List>
       </Collapse>
     </List>
+    </div>
     </div>
   );
 }

@@ -5,7 +5,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const PORT = 4000;
 const DB_NAME = "Harshavardhan_2020101106"
-
+var bcrypt = require("bcrypt");
+var BCRYPT_SALT_ROUNDS = 12;
 // routes
 var testAPIRouter = require("./routes/testAPI");
 var UserRouter = require("./routes/Users");

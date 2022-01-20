@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
-
+var bcrypt = require("bcrypt");
+var BCRYPT_SALT_ROUNDS = 12;
 // Load User model
 const User = require("../models/Users");
 const Buyer = require("../models/Users1");
@@ -45,7 +46,8 @@ router.post("/userregister", (req, res) => {
         contactNumber: req.body.contactNumber,
         age: req.body.age,
         batch: req.body.batch,
-        date: req.body.date
+        date: req.body.date,
+        password: req.body.password
     });
 
     newUser.save()

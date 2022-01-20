@@ -12,7 +12,7 @@ import Common_registration from "./components/common/Common_register";
 const Layout = () => {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       
       <div className="container">
         <Outlet />

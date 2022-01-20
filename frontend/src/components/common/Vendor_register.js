@@ -3,8 +3,8 @@ import axios from "axios";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-
-
+import Navbar from "../templates/Navbar";
+import "./common.css"
 
 
 const VendorRegister = (props) => {
@@ -15,6 +15,7 @@ const VendorRegister = (props) => {
     const [Opentimings, setopen] = useState(" ");
     const [Closetimings, setclose] = useState(" ");
     const [Address, setAD] = useState(" ");
+    const [password, setPass]=useState("");
     const [date, setDate] = useState(null);
 
 
@@ -34,6 +35,9 @@ const VendorRegister = (props) => {
     const onChangeAD = (event) => {
         setAD(event.target.value);
     };
+    const onChangePassword = (event) => {
+        setPass(event.target.value);
+    };
 
 
     const resetInputs = () => {
@@ -42,6 +46,7 @@ const VendorRegister = (props) => {
         setEmail("");
         setContact("");
         setAD("");
+        setPass("");
         setDate(null);
     };
 
@@ -49,13 +54,14 @@ const VendorRegister = (props) => {
         event.preventDefault();
 
         const NUser = {
-           MangerName: MangerName,
-           CanteenName:CanteenName,
-           email:email,
-           contact:contact,
-          
-           Address: Address,
-           date: Date.now(),
+            MangerName: MangerName,
+            CanteenName: CanteenName,
+            email: email,
+            contact: contact,
+
+            Address: Address,
+            password: password,
+            date: Date.now(),
         };
 
         axios
@@ -70,54 +76,67 @@ const VendorRegister = (props) => {
 
     return (
         <div>
-            <Grid container align={"center"} spacing={2}>
-                <Grid item xs={12}>
-                    <TextField
-                        label="Manger Name"
-                        variant="outlined"
-                        value={MangerName}
-                        onChange={onChangeUsername}
-                    />
+            <Navbar/>
+            <h3  className="center"> Vendor Registration </h3>
+            <div  style={{marginTop:40}}>
+                <Grid container align={"center"} spacing={2}>
+                    <Grid item xs={12}>
+                        <TextField
+                            label="Manger Name"
+                            variant="outlined"
+                            value={MangerName}
+                            onChange={onChangeUsername}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            label="Canteen Name"
+                            variant="outlined"
+                            value={CanteenName}
+                            onChange={onChangeCanteen}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            label="Email"
+                            variant="outlined"
+                            value={email}
+                            onChange={onChangeEmail}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            label="Contact Number"
+                            variant="outlined"
+                            value={contact}
+                            onChange={onChangeContact}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <TextField
+                            label="Address"
+                            variant="outlined"
+                            value={Address}
+                            onChange={onChangeAD}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                             label="Password"
+                             variant="outlined"
+                             value={password}
+                             type="password"
+                             onChange={onChangePassword}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button variant="contained" onClick={onSubmit}>
+                            Register
+                        </Button>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        label="Canteen Name"
-                        variant="outlined"
-                        value={CanteenName}
-                        onChange={onChangeCanteen}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        label="Email"
-                        variant="outlined"
-                        value={email}
-                        onChange={onChangeEmail}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        label="Contact Number"
-                        variant="outlined"
-                        value={contact}
-                        onChange={onChangeContact}
-                    />
-                </Grid>
-          
-                <Grid item xs={12}>
-                    <TextField
-                        label="Address"
-                        variant="outlined"
-                        value={Address}
-                        onChange={onChangeAD}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <Button variant="contained" onClick={onSubmit}>
-                        Register
-                    </Button>
-                </Grid>
-            </Grid>
+            </div>
         </div>
     );
 };

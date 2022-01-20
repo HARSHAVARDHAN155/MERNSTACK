@@ -2,7 +2,8 @@ var express = require("express");
 var router = express.Router();
 
 const Vendor = require("../models/Vendor");
-
+var bcrypt = require("bcrypt");
+var BCRYPT_SALT_ROUNDS = 12;
 router.get("/", function(req, res) {
     Vendor.find(function(err, users) {
 		if (err) {
@@ -19,7 +20,9 @@ router.post("/vendorregister", (req, res) => {
         CanteenName: req.body.CanteenName,
         email: req.body.email,
         contact: req.body.contact,
-        Address: req.body.Address
+        Address: req.body.Address,
+        date: req.body.date,
+        password: req.body.password
     });
 
     newUser.save()
