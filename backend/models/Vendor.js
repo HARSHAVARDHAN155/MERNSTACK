@@ -13,7 +13,8 @@ const VendorSchema = new Schema({
     },
     email:{
         type:String,
-        required: false
+        required: false,
+        unique:true
     },
     password:{
 		type:String,

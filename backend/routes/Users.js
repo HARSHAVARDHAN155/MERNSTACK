@@ -5,17 +5,17 @@ var BCRYPT_SALT_ROUNDS = 12;
 // Load User model
 const User = require("../models/Users");
 const Buyer = require("../models/Users1");
-
+const Vendor = require("../models/Vendor");
 // GET request 
 // Getting all the users
-router.get("/", function(req, res) {
-    Buyer.find(function(err, users) {
-		if (err) {
-			console.log(err);
-		} else {
-			res.json(users);
-		}
-	})
+router.get("/", function (req, res) {
+    Buyer.find(function (err, users) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(users);
+        }
+    })
 });
 
 // NOTE: Below functions are just sample to show you API endpoints working, for the assignment you may need to edit them
@@ -35,7 +35,7 @@ router.get("/", function(req, res) {
 //         })
 //         .catch(err => {
 //             res.status(400).send(err);
-            
+
 //         });
 // });
 
@@ -61,20 +61,47 @@ router.post("/userregister", (req, res) => {
 // POST request 
 // Login
 router.post("/login", (req, res) => {
-	const email = req.body.email;
-	// Find user by email
-	User.findOne({ email }).then(user => {
-		// Check if user email exists
-		if (!user) {
-			return res.status(404).json({
-				error: "Email not found",
-			});
+
+    const email = req.body.email;
+    const password = req.body.password;
+
+    let response = {
+        val: "",
+        email: "",
+        typeof_login: " "
+    };
+    arr = 9;
+
+    Vendor.findOne({ email, password }).then(
+        user => {
+            if (!user) {
+                Buyer.findOne({ email, password }).then(
+                    user => {
+                        if (!user) {
+                            response.val = 0;
+                            res.json(response);
+                        }
+                        else {
+                            response.val = 1;
+                            response.email = email;
+                            response.typeof_login = "buyer"
+                            res.json(response);
+                        }
+                    }
+                )
+            }
+            else {
+                arr = 1;
+                response.val = 1;
+                response.email = email;
+                response.typeof_login = "vendor"
+                res.json(response);
+            }
         }
-        else{
-            res.send("Email Found");
-            return user;
-        }
-	});
+    )
+
+    // res.status(200).json(user);
+
 });
 
 module.exports = router;

@@ -29,13 +29,13 @@ const Navbar = () => {
           <Button color="inherit" onClick={() => navigate("/allregister")}>
           REGISTER
           </Button>
-          {/* <Button color="inherit" onClick={() => navigate("/vendor_register")}>
-           Vendor Register
+          <Button color="inherit" onClick={() => navigate("/buyer_home")}>
+           buyer home
           </Button>
-          <Button color="inherit" onClick={() => navigate("/user_register")}>
-          Buyer Register
-          </Button> */}
-          <Button color="inherit" onClick={() => navigate("/profile")}>
+          <Button color="inherit" onClick={() => navigate("/vendor_home")}>
+          Vendor home
+          </Button>
+          <Button color="inherit" onClick={() => navigate("/login")}>
              Login
           </Button>
           
