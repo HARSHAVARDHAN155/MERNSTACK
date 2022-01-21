@@ -13,6 +13,7 @@ import Login from "./components/common/Login";
 import Buyer_home from "./components/common/Buyer_Home";
 import Vendor_Home from "./components/common/Vendor_Home";
 import Buyer_Navbar from "./components/templates/Buyer_Navbar";
+
 const Layout = () => {
   return (
     <div>

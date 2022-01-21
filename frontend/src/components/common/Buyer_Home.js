@@ -4,17 +4,17 @@ import { useState, useEffect } from "react";
 import Navbar from "../templates/Navbar";
 import React, { Component } from 'react';
 import Buyer_Navbar from "../templates/Buyer_Navbar";
+import axios from "axios";
+import Wallet from "./Wallet";
+import { useLocation } from "react-router";
 
-
-export class Buyer_Home extends Component {
-  render() {
-    return <div>
-      <div><Buyer_Navbar></Buyer_Navbar></div>
-        <h1> <center> Welcome </center> </h1>
-    </div>
-  }
+function Buyer_Home() {
+  let location = useLocation();
+  return <div>
+    <div> <Buyer_Navbar></Buyer_Navbar></div>
+    <div> <Wallet/> </div>
+    <h1><center>Welcome {location.state}</center></h1>
+  </div>;
 }
 
 export default Buyer_Home;
-
-

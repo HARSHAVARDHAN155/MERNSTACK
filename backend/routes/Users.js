@@ -58,13 +58,30 @@ router.post("/userregister", (req, res) => {
             res.status(400).send(err);
         });
 });
-// POST request 
+
+// router.post("/buyer", (req, res) => {
+//     Buyer.findOne({ email: req.body.email }), function (err, users) {
+//         if (err) {
+//             console.log(err);
+//         }
+//         else {
+//             if (!users) {
+//                 console.log("no registration");
+//                 res.send("0");
+//             }
+//             else {
+//                 res.json(users);
+//             }
+//         }
+//     }
+// });
+// POST request qqqqss
 // Login
 router.post("/login", (req, res) => {
 
     const email = req.body.email;
     const password = req.body.password;
-
+    console.log(req.body);
     let response = {
         val: "",
         email: "",
@@ -104,5 +121,35 @@ router.post("/login", (req, res) => {
 
 });
 
+router.post("/buyer", (req, res) => {
+
+    const email = req.body.email;
+    console.log(req.body);
+    let response = {
+        name:"",
+        email:"",
+        contactNumber: ""
+
+    };
+    Buyer.findOne({ email}).then(
+        user => {
+            if (!user) {
+                response.val = 0;
+                res.json(response);
+            }
+            else {
+                console.log(user);
+                response.email = email;
+                response.name = user.name;
+                response.contactNumber= user.contactNumber;
+                console.log(response.name);
+                res.json(response);
+
+            }
+        }
+    )
+}
+
+);
 module.exports = router;
 

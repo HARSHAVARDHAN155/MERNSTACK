@@ -159,7 +159,9 @@ const Login = (props) => {
                     alert("Login Successful");
 
                     if (response.data.typeof_login == "buyer") {
-                        navigate("/buyer_home")
+
+                        navigate("/buyer_home", { state: email })
+
                     }
                     else {
                         navigate("/vendor_home")
@@ -168,7 +170,7 @@ const Login = (props) => {
                 }
                 else {
                     alert("login fail");
-                }
+                }   
 
 
                 console.log(response.data);
