@@ -33,7 +33,7 @@ const Buyer_Navbar = () => {
           <Button color="inherit" onClick={() =>{  localStorage.setItem("email", ""); navigate("/")}}>
           Logout
           </Button>
-          <Button color="inherit" onClick={() => navigate("/users")}>
+          <Button color="inherit" onClick={() => navigate("/buyer_edit")}>
            Edit Profile
           </Button>
         </Toolbar>

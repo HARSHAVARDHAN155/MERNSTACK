@@ -13,6 +13,7 @@ import Login from "./components/common/Login";
 import Buyer_home from "./components/common/Buyer_Home";
 import Vendor_Home from "./components/common/Vendor_Home";
 import Buyer_Navbar from "./components/templates/Buyer_Navbar";
+import Buyer_edit from "./components/common/Buyer_edit";
 
 const Layout = () => {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="allregister" element={<Common_registration />} />
           <Route path="user_register" element={<UserRegister />} />
           <Route path="vendor_register" element={<VendorRegister />} />
+          <Route path="buyer_edit" element={<Buyer_edit/>} />
           <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>

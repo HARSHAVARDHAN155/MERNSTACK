@@ -59,6 +59,63 @@ router.post("/userregister", (req, res) => {
         });
 });
 
+router.post("/buyer_edit", (req, res) => {
+    console.log(req.body);
+    const email = req.body.email;
+    const newUser = ({
+        name: req.body.name,
+        email: req.body.email,
+        contactNumber: req.body.contactNumber,
+        age: req.body.age,
+        batch: req.body.batch,
+        wallet:req.body.wallet,
+        date: req.body.date,
+        // password: req.body.password
+    });
+
+    Buyer.findOne({ email}).then(
+        user => {
+            if (!user) {
+                response.val = 0;
+                res.status(400).send(err);
+            }
+            else {
+                user.name = newUser.name,
+                user.contactNumber = newUser.contactNumber,
+                user.age = newUser.age,
+                user.batch = newUser.batch,
+                user.wallet = newUser.wallet,
+                user.save();
+                res.status(200).json(user);
+            }
+        }
+    )
+});
+
+// router.post("/buyer_wallet", (req, res) => {
+//     console.log(req.body);
+//     const email = req.body.email;
+//     const newUser = ({
+       
+//         wallet:req.body.wallet,
+     
+//         // password: req.body.password
+//     });
+
+//     Buyer.findOne({ email}).then(
+//         user => {
+//             if (!user) {
+//                 response.val = 0;
+//                 res.status(400).send(err);
+//             }
+//             else {
+//                 user.wallet = newUser.wallet,
+//                 user.save();
+//                 res.status(200).json(user);
+//             }
+//         }
+//     )
+// });
 
 // router.post("/buyer", (req, res) => {
 //     Buyer.findOne({ email: req.body.email }), function (err, users) {
@@ -134,6 +191,7 @@ router.post("/xxx", (req, res) => {
         age:"",
         batch:"",
         contactNumber:" ",
+        wallet:"",
     };
 
     Buyer.findOne({ email}).then(
@@ -151,6 +209,7 @@ router.post("/xxx", (req, res) => {
                 response.name = user.name;
                 response.age = user.age;
                 response.batch = user.batch;
+                response.wallet = user.wallet;
                 response.contactNumber = user.contactNumber;
                 res.json(response);
             }
