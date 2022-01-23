@@ -59,6 +59,7 @@ router.post("/userregister", (req, res) => {
         });
 });
 
+
 // router.post("/buyer", (req, res) => {
 //     Buyer.findOne({ email: req.body.email }), function (err, users) {
 //         if (err) {
@@ -77,6 +78,7 @@ router.post("/userregister", (req, res) => {
 // });
 // POST request qqqqss
 // Login
+
 router.post("/login", (req, res) => {
 
     const email = req.body.email;
@@ -129,6 +131,8 @@ router.post("/xxx", (req, res) => {
         val: "",
         email: "",
         name:" ",
+        age:"",
+        batch:"",
         contactNumber:" ",
     };
 
@@ -137,14 +141,17 @@ router.post("/xxx", (req, res) => {
             if (!user) {
 
                 response.val = 0;
-                res.json(response);
+                res.json(response.val);
 
             }
             else {
                 arr = 1;
                 response.val = 1;
                 response.email = email;
-                response.name = user.name
+                response.name = user.name;
+                response.age = user.age;
+                response.batch = user.batch;
+                response.contactNumber = user.contactNumber;
                 res.json(response);
             }
         }

@@ -30,11 +30,11 @@ const Buyer_Navbar = () => {
           <Button color="inherit" onClick={() => navigate("/")}>
           My Orders
           </Button>
-          <Button color="inherit" onClick={() => navigate("/")}>
+          <Button color="inherit" onClick={() =>{  localStorage.setItem("email", ""); navigate("/")}}>
           Logout
           </Button>
           <Button color="inherit" onClick={() => navigate("/users")}>
-           Profile
+           Edit Profile
           </Button>
         </Toolbar>
       </AppBar>

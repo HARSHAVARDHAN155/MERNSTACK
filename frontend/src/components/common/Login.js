@@ -158,21 +158,24 @@ const Login = (props) => {
 
                     alert("Login Successful");
                     localStorage.removeItem("email");
-                    localStorage.setItem("email",response.data.email);
+                    localStorage.removeItem("type");
+                    localStorage.setItem("email", response.data.email);
+
 
                     if (response.data.typeof_login == "buyer") {
-
+                        localStorage.setItem("type", "buyer");
                         navigate("/buyer_home", { state: email })
 
                     }
                     else {
+                        localStorage.setItem("type", "vendor");
                         navigate("/vendor_home", { state: email })
                     }
 
                 }
                 else {
                     alert("login fail");
-                }   
+                }
 
 
                 console.log(response.data);
