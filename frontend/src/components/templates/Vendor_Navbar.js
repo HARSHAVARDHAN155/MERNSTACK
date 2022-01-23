@@ -30,11 +30,11 @@ const Vendor_Navbar = () => {
           <Button color="inherit" onClick={() => navigate("/")}>
          Food menu
           </Button>
-          <Button color="inherit" onClick={() => navigate("/")}>
+          <Button color="inherit" onClick={() => { localStorage.setItem("type", ""); navigate("/")}}>
           Logout
           </Button>
-          <Button color="inherit" onClick={() => navigate("/users")}>
-           Profile
+          <Button color="inherit" onClick={() => navigate("/vendor_edit")}>
+           Profile Edit
           </Button>
         </Toolbar>
       </AppBar>

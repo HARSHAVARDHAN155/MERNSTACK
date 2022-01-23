@@ -25,6 +25,16 @@ const VendorSchema = new Schema({
         type:String,
         required: false
     },
+    opening:{
+        type:String,
+        required: false
+    },
+    closing:{
+        type:String,
+        required: false
+    },
+    
+
     Address:{
         type:String,
         required: false

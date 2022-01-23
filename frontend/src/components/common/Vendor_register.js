@@ -12,8 +12,8 @@ const VendorRegister = (props) => {
     const [CanteenName, setCanteen] = useState("");
     const [email, setEmail] = useState("");
     const [contact, setContact] = useState(" ");
-    const [Opentimings, setopen] = useState(" ");
-    const [Closetimings, setclose] = useState(" ");
+    const [opening, setopen] = useState(" ");
+    const [closing, setclose] = useState(" ");
     const [Address, setAD] = useState(" ");
     const [password, setPass]=useState("");
     const [date, setDate] = useState(null);
@@ -35,6 +35,12 @@ const VendorRegister = (props) => {
     const onChangeAD = (event) => {
         setAD(event.target.value);
     };
+    const onChangeop = (event) => {
+        setopen(event.target.value);
+    };
+    const onChangeclose = (event) => {
+        setclose(event.target.value);
+    };
     const onChangePassword = (event) => {
         setPass(event.target.value);
     };
@@ -46,6 +52,8 @@ const VendorRegister = (props) => {
         setEmail("");
         setContact("");
         setAD("");
+        setopen("");
+        setclose("");
         setPass("");
         setDate(null);
     };
@@ -58,7 +66,8 @@ const VendorRegister = (props) => {
             CanteenName: CanteenName,
             email: email,
             contact: contact,
-
+            opening : opening,
+            closing : closing,
             Address: Address,
             password: password,
             date: Date.now(),
@@ -110,6 +119,22 @@ const VendorRegister = (props) => {
                             variant="outlined"
                             value={contact}
                             onChange={onChangeContact}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            label="Open Time (eg: 10.00 am)"
+                            variant="outlined"
+                            value={opening}
+                            onChange={onChangeop}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            label="close time (eg: 5.00 pm)_"
+                            variant="outlined"
+                            value={closing}
+                            onChange={onChangeclose}
                         />
                     </Grid>
 

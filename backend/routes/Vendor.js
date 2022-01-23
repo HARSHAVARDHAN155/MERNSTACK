@@ -20,6 +20,8 @@ router.post("/vendorregister", (req, res) => {
         CanteenName: req.body.CanteenName,
         email: req.body.email,
         contact: req.body.contact,
+        opening : req.body.opening,
+        closing : req.body.closing, 
         Address: req.body.Address,
         date: req.body.date,
         password: req.body.password

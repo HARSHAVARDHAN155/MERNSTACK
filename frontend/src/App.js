@@ -14,7 +14,7 @@ import Buyer_home from "./components/common/Buyer_Home";
 import Vendor_Home from "./components/common/Vendor_Home";
 import Buyer_Navbar from "./components/templates/Buyer_Navbar";
 import Buyer_edit from "./components/common/Buyer_edit";
-
+import Vendor_edit from "./components/common/vendor_edit";
 const Layout = () => {
   return (
     <div>
@@ -41,6 +41,7 @@ function App() {
           <Route path="user_register" element={<UserRegister />} />
           <Route path="vendor_register" element={<VendorRegister />} />
           <Route path="buyer_edit" element={<Buyer_edit/>} />
+          <Route path="vendor_edit" element={<Vendor_edit/>} />
           <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>

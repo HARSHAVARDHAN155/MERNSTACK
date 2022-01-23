@@ -220,6 +220,49 @@ router.post("/xxx", (req, res) => {
 
 });
 
+router.post("/vendor", (req, res) => {
+
+    const email = req.body.email;
+    console.log(req.body);
+    let response = {
+        val: "",
+        email: "",
+        Mangername:" ",
+        canteenname:"",
+        closing:"",
+        opening:"",
+        Address: "",
+        contactNumber:" ",
+        
+    };
+
+    Vendor.findOne({ email}).then(
+        user => {
+            if (!user) {
+
+                response.val = 0;
+                res.json(response.val);
+
+            }
+            else {
+                arr = 1;
+                response.val = 1;
+                response.email = email;
+                response.Managername = user.MangerName;
+                response.canteenname = user.CanteenName;
+                response.Address = user.Address;
+                response.opening = user.opening;
+                response.closing = user.closing;
+                response.contactNumber = user.contact;
+                res.json(response);
+            }
+        }
+    )
+
+    // res.status(200).json(user);
+
+});
+
 
 
 module.exports = router;

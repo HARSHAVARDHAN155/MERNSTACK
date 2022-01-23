@@ -95,11 +95,11 @@ const Buyer_Home = (props) => {
   }
   useEffect(() => {
 
-    if (type !== "buyer") {
+    // if (type !== "buyer") {
 
-      alert("You do not have permission to access this page");
-      navigate("/")
-    }
+    //   alert("You do not have permission to access this page");
+    //   navigate("/")
+    // }
     axios
       .post('http://localhost:4000/user/xxx', Nuser)
       .then((response) => {
@@ -113,9 +113,6 @@ const Buyer_Home = (props) => {
           console.log(response.data);
           console.log("here");
 
-        }
-        else {
-          alert("no fetch");
         }
       })
       .catch((error) => {
