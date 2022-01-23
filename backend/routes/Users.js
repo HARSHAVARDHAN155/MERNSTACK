@@ -121,35 +121,40 @@ router.post("/login", (req, res) => {
 
 });
 
-router.post("/buyer", (req, res) => {
+router.post("/xxx", (req, res) => {
 
     const email = req.body.email;
     console.log(req.body);
     let response = {
-        name:"",
-        email:"",
-        contactNumber: ""
-
+        val: "",
+        email: "",
+        name:" ",
+        contactNumber:" ",
     };
+
     Buyer.findOne({ email}).then(
         user => {
             if (!user) {
+
                 response.val = 0;
                 res.json(response);
+
             }
             else {
-                console.log(user);
+                arr = 1;
+                response.val = 1;
                 response.email = email;
-                response.name = user.name;
-                response.contactNumber= user.contactNumber;
-                console.log(response.name);
+                response.name = user.name
                 res.json(response);
-
             }
         }
     )
-}
 
-);
+    // res.status(200).json(user);
+
+});
+
+
+
 module.exports = router;
 

@@ -157,6 +157,8 @@ const Login = (props) => {
                 if (response.data.val == 1) {
 
                     alert("Login Successful");
+                    localStorage.removeItem("email");
+                    localStorage.setItem("email",response.data.email);
 
                     if (response.data.typeof_login == "buyer") {
 
@@ -164,7 +166,7 @@ const Login = (props) => {
 
                     }
                     else {
-                        navigate("/vendor_home")
+                        navigate("/vendor_home", { state: email })
                     }
 
                 }

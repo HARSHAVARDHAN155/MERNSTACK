@@ -30,6 +30,9 @@ const Buyer = new Schema({
 		type:String,
 		required : true
 	},
+	wallet:{
+		type:Number,
+	},
 	date:{
 		type: Date,
 		required: false
@@ -37,7 +40,7 @@ const Buyer = new Schema({
 });
 
 // //PASS ENCRYPT
-// Buyer.pre('save', function(next) {
+// Buyer.pre('save', function(next) {Welcome
 // 	var user = this;
 // 	if (user.isModified("password")) {
 // 	  bcrypt.genSalt(saltRounds, function(err, salt) {

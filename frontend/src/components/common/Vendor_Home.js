@@ -2,17 +2,16 @@ import { blue } from "@mui/material/colors";
 import { fontSize } from "@mui/system";
 import { useState, useEffect } from "react";
 import Navbar from "../templates/Navbar";
-import React, { Component } from 'react';
 import Vendor_Navbar from "../templates/Vendor_Navbar";
+import { useLocation } from "react-router";
+import React from 'react';
 
-
-export class Vendor_Home extends Component {
-  render() {
+function Vendor_Home() {
+    let location = useLocation();
     return <div>
-      <div> <Vendor_Navbar/> </div>
-        <h1> <center> Welcome to Vendor page </center> </h1>
-    </div>
-  }
+        <Vendor_Navbar />
+        <div><h1><center>Welcome to vendor page Mr/Mrs {location.state} </center></h1></div>
+    </div>;
 }
 
 export default Vendor_Home;
