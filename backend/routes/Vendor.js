@@ -25,6 +25,7 @@ router.post("/fooding", function (req, res) {
             res.json(user);
 
         }
+        
     )
 });
 
