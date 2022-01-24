@@ -25,9 +25,51 @@ router.post("/fooding", function (req, res) {
             res.json(user);
 
         }
-        
+
     )
 });
+
+router.post("/item_delete", function (req, res) {
+    const name = req.body.name;
+    const email = req.body.email;
+    console.log(req.body.id);
+
+    Food.deleteOne({ name, email }).then(
+        user => {
+            if (!user) {
+                res.status(400).json(user);
+            }
+            else {
+                res.status(200).json(user);
+            }
+        }
+    )
+        .catch((error) => {
+            res.status(400).json(user);
+            console.log(error);
+        });
+});
+ router.delete("/delete/:id",async(req,res)=>{
+     const id = req.params.id;
+     await Food.findByIdAndRemove(id).exec();
+     res.status(200).send("item Deleted"); 
+ })
+
+router.put("/update",async(req,res)=>{
+    const Newprice = req.body.Newprice;
+    const Newname = req.body.Newname;
+    const id = req.body.id;
+    try{
+        await Food.findById(id,(error,ItemToupdate)=>{
+            ItemToupdate.price = Number(Newprice);
+            ItemToupdate.name = Newname;
+            ItemToupdate.save();
+        })
+        res.status(200).send("updated");
+    }catch(err){
+        console.log(err);
+    }
+})
 
 router.post("/vendorregister", (req, res) => {
     console.log(req.body);

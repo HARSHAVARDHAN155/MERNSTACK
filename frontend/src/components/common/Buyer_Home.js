@@ -127,11 +127,13 @@ const Buyer_Home = (props) => {
       <div> <Wallet /> </div>
       <Box>
       <div tyle={{ backgroundColor: "#FAE03B", padding: 100, textAlign: "center", marginTop: 100, fontSize: 30 }}>
+       <div> 
         <h1><center>Welcome {username}</center></h1>
         <h1><center>email: {email}</center></h1>
         <h1><center>contactNumber: {contactNumber}</center></h1>
         <h1><center>age:{age}</center></h1>
         <h1><center>Batch: {batch}</center></h1>
+        </div>
       </div>
       </Box>  </div>
 

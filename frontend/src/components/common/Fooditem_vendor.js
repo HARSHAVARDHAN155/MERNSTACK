@@ -32,11 +32,11 @@ const Fooditem_vendor = (props) => {
     const [email, setEmail] = useState(localStorage.getItem("email"));
     const navigate = useNavigate();
     const Nuser = {
-        email : email,
+        email: email,
     }
     useEffect(() => {
         axios
-            .post("http://localhost:4000/vendor/fooding",Nuser)
+            .post("http://localhost:4000/vendor/fooding", Nuser)
             .then((response) => {
                 setUsers(response.data);
                 setSortedUsers(response.data);
@@ -67,7 +67,53 @@ const Fooditem_vendor = (props) => {
     };
 
 
+    const update = (id) => {
 
+        const Newname = prompt("enter new name");
+        if(Newname == null){
+            return;
+        }
+        const Newprice = prompt("enter new price");
+        if(Newprice == null){
+            return;
+        }
+        axios.put("http://localhost:4000/vendor/update", { Newname: Newname, Newprice: Newprice, id: id }).then(() => {
+            alert("edited successfully");
+            setUsers(users.map((user) => {
+                return user._id == id ? { _id: id, name: Newname,rating:user.rating, price: Newprice, date: user.data, FoodDiscription: user.FoodDiscription, add_ons: user.add_ons} : user;
+            }))
+        })
+
+    };
+    const ondelete = (id) => {
+        axios.delete(`http://localhost:4000/vendor/delete/${id}`).then((response) => {
+            alert("item deleted sucessfully");
+            setUsers(
+                users.filter((user) => {
+                    return user._id != id;
+                })
+            )
+
+        })
+        // event.preventDefault();
+
+        // console.log(props.name);
+        // console.log(props.email);
+        // const newItem = {
+        //     email:props.email,
+        //     name : props.name
+        // };
+        // axios
+        //     .post("http://localhost:4000/vendor/item_delete", Nuser)
+        //     .then((response) => {
+        //        alert("item deleted sucessfully");
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //     });
+
+
+    }
 
 
     return (
@@ -169,7 +215,7 @@ const Fooditem_vendor = (props) => {
                                             Date
                                         </TableCell>
                                         <TableCell>Name</TableCell>
-                                        <TableCell>Email</TableCell>
+                                        {/* <TableCell>Email</TableCell> */}
                                         <TableCell>price</TableCell>
                                         <TableCell>Veg/Non-veg</TableCell>
                                         <TableCell>Rating</TableCell>
@@ -185,11 +231,17 @@ const Fooditem_vendor = (props) => {
                                             <TableCell>{ind}</TableCell>
                                             <TableCell>{user.date}</TableCell>
                                             <TableCell>{user.name}</TableCell>
-                                            <TableCell>{user.email}</TableCell>
+                                            {/* <TableCell>{user.email}</TableCell> */}
                                             <TableCell>{user.price}</TableCell>
                                             <TableCell>{user.FoodDiscription}</TableCell>
                                             <TableCell>{user.rating}</TableCell>
                                             <TableCell>{user.add_ons}</TableCell>
+                                            <TableCell><Button variant="contained" color="success" onClick={() => { update(user._id); }}>
+                                                EDIT
+                                            </Button></TableCell>
+                                            <TableCell><Button variant="contained" color="error" onClick={() => { ondelete(user._id); }}>
+                                                Delete
+                                            </Button></TableCell>
 
                                         </TableRow>
                                     ))}
