@@ -15,6 +15,19 @@ router.get("/food", function (req, res) {
     })
 });
 
+router.post("/fooding", function (req, res) {
+    const email = req.body.email;
+    console.log(email);
+
+    Food.find({ email }).then(
+        user => {
+
+            res.json(user);
+
+        }
+    )
+});
+
 router.post("/vendorregister", (req, res) => {
     console.log(req.body);
     const newUser = new Vendor({
