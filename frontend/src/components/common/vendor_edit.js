@@ -26,7 +26,6 @@ const Vendor_edit = (props) => {
     const [opening, setopen] = useState("");
     const [closing, setclose] = useState("");
     const [password, setPass] = useState("");
-    const [wallet, setWallet] = useState(0);
     const [email, setEmail] = useState(localStorage.getItem("email"));
 
     const onChangeMangerName = (event) => {
@@ -89,25 +88,23 @@ const Vendor_edit = (props) => {
     }, [])
 
     const onSubmit = (event) => {
-        // event.preventDefault();
+        event.preventDefault();
 
-        // const NUser = {
-        //     name: MangerName,
-        //     email: email,
-        //     contactNumber: contactNumber,
-        //     age: age,
-        //     Address:  Address,
-        //     wallet:wallet,
-        //     // password: password,
-        //     date: Date.now(),
-        // };
+        const NUser = {
+            MangerName:MangerName,
+            contactNumber :contactNumber,
+            CanteenName :CanteenName,
+            Address : Address,
+            // password: password,
+            date: Date.now(),
+        };
 
-        // axios
-        //     .post("http://localhost:4000/user/buyer_edit", NUser)
-        //     .then((response) => {
-        //         alert("sucessfully edited\t" + response.data.name);
-        //         console.log(response.data);
-        //     });
+        axios
+            .post("http://localhost:4000/user/buyer_edit", NUser)
+            .then((response) => {
+                alert("sucessfully edited\t" + response.data.name);
+                console.log(response.data);
+            });
 
     };
 
@@ -175,16 +172,16 @@ const Vendor_edit = (props) => {
                             onChange={onChangeclose}
                         />
                     </Grid>
-                    {/* <Grid item xs={12}>
+                    <Grid item xs={12}>
                         <TextField
-                            
-                            label="Password"
+
+                            label="Address"
                             variant="outlined"
-                            value={password}
-                            type="password"
-                            onChange={onChangePassword}
+                            value={Address}
+                            onChange={onChangeAddress}
+                            
                         />
-                     </Grid> */}
+                     </Grid>
                     <Grid item xs={12}>
                         <Button variant="contained" onClick={onSubmit}>
                             Save Profile

@@ -92,6 +92,43 @@ router.post("/buyer_edit", (req, res) => {
     )
 });
 
+router.post("/vendor_edit", (req, res) => {
+    console.log(req.body);
+    const email = req.body.email;
+    const newUser = ({
+        Managername: req.body.name,
+        email: req.body.email,
+        contactNumber: req.body.contactNumber,
+        Canteen : req.body.Canteen,
+        opening : req.body.opening,
+        closing :req.body.closing,
+        Address : req.body.Address,
+        date: req.body.date,
+        // password: req.body.password
+    });
+
+  Vendor.findOne({ email}).then(
+        user => {
+            if (!user) {
+                response.val = 0;
+                res.status(400).send(err);
+            }
+            else {
+                user.MangerName = newUser.Managername,
+                user.email = email,
+                user.contact = newUser.contactNumber,
+                user.CanteenName = newUser.Canteen,
+                user.opening = newUser.opening,
+                user.closing = newUser.closing,
+                user.Address = newUser.Address,
+                user.save();
+                res.status(200).json(user);
+            }
+        }
+    )
+});
+
+
 // router.post("/buyer_wallet", (req, res) => {
 //     console.log(req.body);
 //     const email = req.body.email;

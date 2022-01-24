@@ -186,7 +186,7 @@ const Login = (props) => {
 
     return (
         <div><Navbar />
-            <h3 className="center"> Login Page </h3>
+            <h3 > Login Page </h3>
             <div style={{ marginTop: 40 }} >
                 <Grid container align={"center"} spacing={3}>
 

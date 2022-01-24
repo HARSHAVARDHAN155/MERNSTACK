@@ -1,4 +1,10 @@
 .center {
     text-align: center;
+    color: aqua;
     /* border: 3px solid green; */
   }
+
+.profile{
+  text-align: center;
+  color: chocolate;
+}
