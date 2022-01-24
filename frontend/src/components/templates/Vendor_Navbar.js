@@ -27,7 +27,7 @@ const Vendor_Navbar = () => {
           <Button color="inherit" onClick={() => navigate("/vendor_home")}>
           Home
           </Button>
-          <Button color="inherit" onClick={() => navigate("/")}>
+          <Button color="inherit" onClick={() => navigate("/foodmenu")}>
          Food menu
           </Button>
           <Button color="inherit" onClick={() => { localStorage.setItem("type", ""); navigate("/")}}>

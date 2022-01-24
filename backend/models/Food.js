@@ -14,12 +14,23 @@ const FoodSchema = new Schema({
     rating:{
         type:Number,
         default:0,
-        required: true
+        // required: true
+    },
+   email:{
+        type:String,
+        required : true
+    },
+    add_ons:{
+        type:String,
     },
     FoodDiscription:{
         type:String,
         required:false
-    }   
+    },
+    date:{
+		type: Date,
+		required: false
+	}   
 
 });
 
