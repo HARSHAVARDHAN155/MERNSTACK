@@ -20,6 +20,33 @@ const FoodSchema = new Schema({
         type:String,
         required : true
     },
+    CanteenName:{
+        type:String,
+        // required : true
+    },
+    ManagerName:{
+        type:String,
+        // required : true
+    },
+    ManagerContact:{
+        type:String,
+        // required : true
+    },
+    opening: {
+        type: String,
+        required: false
+    },
+    closing: {
+        type: String,
+        required: false
+    },
+
+
+    Address: {
+        type: String,
+        required: false
+    },
+    
     add_ons:{
         type:String,
     },
