@@ -9,7 +9,8 @@ const VendorSchema = new Schema({
     },
     CanteenName: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     email: {
         type: String,

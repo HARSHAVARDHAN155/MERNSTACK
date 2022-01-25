@@ -97,13 +97,16 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
 
-const Buyer_Home = (props) => {
+function Buyer_Home () {
   const navigate = useNavigate();
   // USERS LIST
   const [users, setUsers] = useState([]);
   const [sortedUsers, setSortedUsers] = useState([]);
   const [sortName, setSortName] = useState(true);
   const [searchText, setSearchText] = useState("");
+  const [searchInput, setinput] = useState("");
+
+
 
   useEffect(() => {
     axios
@@ -179,6 +182,27 @@ const Buyer_Home = (props) => {
       );          // setc(response.contactNumber)
   }, [])
 
+  const [filteredData, setFilter] = useState([]);
+  const [newfilter, setNewfilter] = useState([]);
+  const onChangeSearch = (event) => {
+    setinput(event.target.value);
+  }
+
+  function search(users) {
+
+    return users.filter((rows) => rows.name.toLowercase().indexOf(searchInput) > -1);
+  }
+
+
+  // if (searchInput === "") {
+  //   setFilter(users);
+  // }
+  // else {
+  //   setFilter(newfilter);
+  // }
+
+  console.log(searchInput);
+
   return (
     <div>
       <div> <Buyer_Navbar></Buyer_Navbar></div>
@@ -193,9 +217,9 @@ const Buyer_Home = (props) => {
         <h1><center>Batch: {batch}</center></h1> */}
           </div>
           <div style={{ marginTop: 30 }}>
-            <h1 style={{ marginTop: 30, fontSize: 50,textAlign: "center",color:"orange"  }}> FOOD </h1>
+            <h1 style={{ marginTop: 30, fontSize: 50, textAlign: "center", color: "orange" }}> FOOD </h1>
             <Grid container>
-              <Grid item xs={12} md={3} lg={3}>
+              <Grid item xs={12} md={3} lg={2}>
                 <List component="nav" aria-label="mailbox folders">
                   <ListItem text>
                     <h1>Filters</h1>
@@ -204,14 +228,17 @@ const Buyer_Home = (props) => {
               </Grid>
               <Grid item xs={12} md={9} lg={9}>
                 <List component="nav" aria-label="mailbox folders">
+
                   <TextField
                     id="standard-basic"
                     label="Search"
                     fullWidth={true}
+                    value={searchInput}
+                    onChange={onChangeSearch}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment>
-                          <IconButton>
+                          <IconButton  >
                             <SearchIcon />
                           </IconButton>
                         </InputAdornment>
@@ -219,6 +246,7 @@ const Buyer_Home = (props) => {
                     }}
                   // onChange={customFunction}
                   />
+
                 </List>
               </Grid>
             </Grid>
@@ -291,7 +319,7 @@ const Buyer_Home = (props) => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {users.map((user, ind) => (
+                      {(users).map((user, ind) => (
                         <TableRow key={ind}>
                           <TableCell>{ind}</TableCell>
                           {/* <TableCell>{user.date}</TableCell> */}
@@ -305,6 +333,9 @@ const Buyer_Home = (props) => {
                           <TableCell>{user.opening}</TableCell>
                           <TableCell>{user.closing}</TableCell>
                           <TableCell>{user.Address}</TableCell>
+                          <TableCell><Button variant="contained" color="success" >
+                            order_now
+                          </Button></TableCell>
                         </TableRow>
                       ))}
                     </TableBody>

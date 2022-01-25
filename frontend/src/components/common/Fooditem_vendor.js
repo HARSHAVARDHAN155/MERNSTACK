@@ -78,21 +78,23 @@ const Fooditem_vendor = (props) => {
             return;
         }
         axios.put("http://localhost:4000/vendor/update", { Newname: Newname, Newprice: Newprice, id: id }).then(() => {
-            alert("edited successfully");
+          
             setUsers(users.map((user) => {
                 return user._id == id ? { _id: id, name: Newname,rating:user.rating, price: Newprice, date: user.data, FoodDiscription: user.FoodDiscription, add_ons: user.add_ons} : user;
             }))
+            alert("edited successfully");
         })
 
     };
     const ondelete = (id) => {
         axios.delete(`http://localhost:4000/vendor/delete/${id}`).then((response) => {
-            alert("item deleted sucessfully");
             setUsers(
                 users.filter((user) => {
                     return user._id != id;
                 })
             )
+            
+            alert("item deleted sucessfully");
 
         })
         // event.preventDefault();
