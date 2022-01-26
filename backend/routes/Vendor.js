@@ -71,6 +71,34 @@ router.put("/update",async(req,res)=>{
     }
 })
 
+// router.put("/updateQuantity",async(req,res)=>{
+//     const NewQunatity = req.body.NewQunatity;
+//     const id = req.body.id;
+//     try{
+//         await Food.findById(id,(error,ItemToupdate)=>{
+//             ItemToupdate.Quantity = Number(NewQunatity);
+//             ItemToupdate.save();
+//         })
+//         res.status(200).send("updated");
+//     }catch(err){
+//         console.log(err);
+//     }
+// })
+
+router.post("/addtoorders",async(req,res)=>{
+  
+    const id = req.body.id;
+    try{
+        await Food.findById(id,(error,food)=>{
+            res.status(200).json(food);
+            console.log(food)
+        })
+        // res.status(200).send("updated");
+    }catch(err){
+        console.log(err);
+    }
+})
+
 router.post("/vendorregister", (req, res) => {
     console.log(req.body);
     const newUser = new Vendor({

@@ -81,7 +81,7 @@ const AddFooditem = (props) => {
         setdiscription("");
         setaddon("");
     };
-
+    const today = new Date();
     const onSubmit = (event) => {
         event.preventDefault();
 
@@ -97,7 +97,8 @@ const AddFooditem = (props) => {
             closing:closing,
             Address:Address,
             add_ons: add_ons,
-            date: Date.now(),
+            // date: `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`
+            date: today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
         };
         console.log(NUser);
         axios

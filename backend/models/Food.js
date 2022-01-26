@@ -54,8 +54,13 @@ const FoodSchema = new Schema({
         type:String,
         required:false
     },
+    Quantity:{
+        type:Number,
+        default:1,
+        required:false
+    },
     date:{
-		type: Date,
+		type: String,
 		required: false
 	}   
 

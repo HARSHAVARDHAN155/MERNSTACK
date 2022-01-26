@@ -26,78 +26,14 @@ import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-
+// import { useState, useEffect } from "react";
 
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-// export default class Buyer_Home extends Component {
-
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       email: "",
-//       pass: "",
-//       name: "",
-//       contactNumber: 22222,
-//       age: "",
-//       batch: "",
-//       wallet: 0,
-//     }
-//     // this.onChangeEmail = this.onChangeEmail.bind(this);
-//     // this.onChangename = this.onChangename.bind(this);
-//     // this.onChngeContactNumber = this.onChngeContactNumber.bind(this);
-//     // this.onChangeage = this.onChangeage.bind(this);
-//     // this.onChangebatch = this.onChangename.bind(this);
-//     // this.onChangewallet = this.onChangewallet.bind(this);
-
-//   }
-//   componentDidMount() {
-//     const Nuser = {
-//       email: localStorage.getItem("email"),
-//       pass: localStorage.getItem("pass"),
-
-//     }
-//     this.setState({
-//       email: Nuser.email,
-//       pass: Nuser.pass
-//     })
-//     console.log(Nuser.email);
-//     axios
-//       .post('https://localhost:4000/user/login', Nuser)
-//       .then((res) => {
-//         console.log(res.data);
-//         if (res.data.val == 1) {
-//           console.log(res.data);
-//           // this.setState({
-//           //   name: res.data.name,
-//           //   contactNumber: res.data.contactNumber,
-//           // })
-
-//         }
-//       })
-//   }
-//   render() {
-//     return <div>
-//       <div> <Buyer_Navbar></Buyer_Navbar></div>
-//       <div> <Wallet /> </div>
-//       <h1><center>Welcome {this.state.email}</center></h1>
-
-//     </div>;
-//   }
-// }
-
-// export default Buyer_Home;
 
 
 
 
-
-
-
-
-
-
-
-function Buyer_Home () {
+function Buyer_Home() {
   const navigate = useNavigate();
   // USERS LIST
   const [users, setUsers] = useState([]);
@@ -142,6 +78,21 @@ function Buyer_Home () {
 
   // BUYER CODE
   let location = useLocation();
+  /// Myorder Scema
+  const [Foodname, setFood] = useState("");
+  const [price, setprice] = useState("");
+  const [rating, setrating] = useState("");
+  const [buyer_email, setbuyer] = useState("");
+  const [vendor_email, setvendor] = useState("");
+  const [CanteenName, setcanteen] = useState("");
+  const [ManagerName, setManager] = useState("");
+  const [ManagerContact, setManagerContact] = useState("");
+  const [status, setStatus] = useState("");
+  const [FoodDiscription, setFoodDiscription] = useState("");
+  const [date, setDate] = useState("");
+  const [time, settime] = useState("");
+  const [quantity, setquantity] = useState(1);
+
   const [username, setUser] = useState("");
   const [contactNumber, setc] = useState("");
   const [age, setAge] = useState("");
@@ -184,16 +135,78 @@ function Buyer_Home () {
 
   const [filteredData, setFilter] = useState([]);
   const [newfilter, setNewfilter] = useState([]);
+  const [Quantity, setQ] = useState(1);
+
+
+  // Quantity Edit Need to edit more
+  //   const update = (id) => {
+
+  //     const NewQunatity = prompt("enter Qunatity");
+  //     if(NewQunatity == null){
+  //         return;
+  //     }
+
+  //     axios.put("http://localhost:4000/vendor/updateQunatity", { NewQunatity: NewQunatity, id: id }).then(() => {
+
+  //         // setUsers(users.map((user) => {
+  //         //     return user._id == id ? { _id: id, name: Newname,rating:user.rating, price: Newprice, date: user.data, FoodDiscription: user.FoodDiscription, add_ons: user.add_ons} : user;
+  //         // }))
+  //         alert("Quantity updated successfully");
+  //     })
+
+  // };
   const onChangeSearch = (event) => {
     setinput(event.target.value);
   }
 
-  function search(users) {
+  // function search(users) {
 
-    return users.filter((rows) => rows.name.toLowercase().indexOf(searchInput) > -1);
+  //   return users.filter((rows) => rows.name.toLowercase().indexOf(searchInput) > -1);
+  // }
+  // const NewOrder = {
+
+  // }
+  const NewFood = {
+    Foodname: Foodname,
+    price: price,
+    rating: rating,
+    buyer_email: buyer_email,
+    vendor_email: vendor_email,
+    CanteenName: CanteenName,
+    ManagerName: ManagerName,
+    ManagerContact: ManagerContact,
+    status: status,
+    FoodDiscription: FoodDiscription,
+    date: date,
+    time: time,
+    quantity: quantity
   }
 
+  const today = new Date();
+  const Addtoorders = (id) => {
+    
 
+
+    axios.post("http://localhost:4000/vendor/addtoorders", { id: id }).then((res) => {
+
+      setFood(res.data.name)
+      setprice(res.data.price);
+      setrating(res.data.rating);
+      setbuyer(email);
+      setvendor(res.data.email);
+      setcanteen(res.data.CanteenName);
+      setManager(res.data.ManagerName);
+      setManagerContact(res.data.ManagerContact);
+      setStatus("Confirm Order");
+      setFoodDiscription(res.data.FoodDiscription);
+      settime(today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds())
+      setDate(`${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`)
+      console.log(res);
+
+    })
+    console.log(NewFood);
+  };
+  
   // if (searchInput === "") {
   //   setFilter(users);
   // }
@@ -315,6 +328,8 @@ function Buyer_Home () {
                         <TableCell>Canteen Open Time</TableCell>
                         <TableCell>Canteen Close Time</TableCell>
                         <TableCell>Canteen Address</TableCell>
+                        {/* <TableCell>Quantity</TableCell>
+                        <TableCell>Enter_Quantity</TableCell> */}
                         <TableCell>Order_Now</TableCell>
                       </TableRow>
                     </TableHead>
@@ -333,7 +348,18 @@ function Buyer_Home () {
                           <TableCell>{user.opening}</TableCell>
                           <TableCell>{user.closing}</TableCell>
                           <TableCell>{user.Address}</TableCell>
-                          <TableCell><Button variant="contained" color="success" >
+                          {/* <TableCell><Grid item xs={12}>
+                            <TextField
+                              label="Quantity"
+                              variant="outlined"
+                              value={user.Quantity}
+                            // onChange={onChangeQ(user._id)}
+                            />
+                          </Grid></TableCell> */}
+                          {/* <TableCell><Button variant="contained" color="success" onClick={() => { { update(user._id) } }}>
+                            Enter_Quantity
+                          </Button></TableCell> */}
+                          <TableCell><Button variant="contained" color="success" onClick={() => { { Addtoorders(user._id) } }}>
                             order_now
                           </Button></TableCell>
                         </TableRow>

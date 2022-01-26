@@ -123,7 +123,7 @@ const VendorRegister = (props) => {
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
-                            label="Open Time (eg: 10.00 am)"
+                            label="Open Time (HH:MM:SS)"
                             variant="outlined"
                             value={opening}
                             onChange={onChangeop}
@@ -131,7 +131,7 @@ const VendorRegister = (props) => {
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
-                            label="close time (eg: 5.00 pm)_"
+                            label="close time (HH:MM:SS)"
                             variant="outlined"
                             value={closing}
                             onChange={onChangeclose}
