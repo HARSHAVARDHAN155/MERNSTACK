@@ -115,14 +115,14 @@ function Buyer_Home() {
     axios
       .post('http://localhost:4000/user/xxx', Nuser)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         if (response.data.val == 1) {
-          console.log(response.data);
+          // console.log(response.data);
           setUser(response.data.name);
           setAge(response.data.age);
           setc(response.data.contactNumber);
           setBatch(response.data.batch);
-          console.log(response.data);
+          // console.log(response.data);
           console.log("here");
 
         }
@@ -166,25 +166,11 @@ function Buyer_Home() {
   // const NewOrder = {
 
   // }
-  const NewFood = {
-    Foodname: Foodname,
-    price: price,
-    rating: rating,
-    buyer_email: buyer_email,
-    vendor_email: vendor_email,
-    CanteenName: CanteenName,
-    ManagerName: ManagerName,
-    ManagerContact: ManagerContact,
-    status: status,
-    FoodDiscription: FoodDiscription,
-    date: date,
-    time: time,
-    quantity: quantity
-  }
+
 
   const today = new Date();
   const Addtoorders = (id) => {
-    
+
 
 
     axios.post("http://localhost:4000/vendor/addtoorders", { id: id }).then((res) => {
@@ -201,12 +187,44 @@ function Buyer_Home() {
       setFoodDiscription(res.data.FoodDiscription);
       settime(today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds())
       setDate(`${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`)
-      console.log(res);
+      // console.log(res);
 
     })
-    console.log(NewFood);
+
+
   };
-  
+  // console.log(NewFood);
+  const AddtoSchema = () => {
+    // event.preventDefault();
+
+    const NewFood = {
+      Foodname: Foodname,
+      price: price,
+      rating: rating,
+      buyer_email: buyer_email,
+      vendor_email: vendor_email,
+      CanteenName: CanteenName,
+      ManagerName: ManagerName,
+      ManagerContact: ManagerContact,
+      status: status,
+      FoodDiscription: FoodDiscription,
+      date: date,
+      time: time,
+      quantity: quantity
+    }
+
+
+    axios.post("http://localhost:4000/user/myorder", NewFood).then((res) => {
+
+      alert("added to schema");
+
+      // console.log(res);
+
+    })
+
+
+  };
+
   // if (searchInput === "") {
   //   setFilter(users);
   // }
@@ -359,7 +377,12 @@ function Buyer_Home() {
                           {/* <TableCell><Button variant="contained" color="success" onClick={() => { { update(user._id) } }}>
                             Enter_Quantity
                           </Button></TableCell> */}
-                          <TableCell><Button variant="contained" color="success" onClick={() => { { Addtoorders(user._id) } }}>
+                          <TableCell><Button variant="contained" color="success" onClick={() => {
+                            { Addtoorders(user._id) }; {
+                              AddtoSchema()
+                            };
+                            { navigate("/myorders") }
+                          }}>
                             order_now
                           </Button></TableCell>
                         </TableRow>

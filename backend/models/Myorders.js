@@ -5,36 +5,36 @@ const Schema = mongoose.Schema;
 const MyOrdersSchema = new Schema({
     food_name: {
         type: String,
-        required: true
+        required: false
     },
     price: {
         type: Number,
-        required: true
+        required: false
     },
     rating: {
         type: Number,
         default: 0,
-        // required: true
+        // required: false
     },
     buyer_email: {
         type: String,
-        required: true
+        required: false
     },
     vendor_email: {
         type: String,
-        required: true
+        required: false
     },
     CanteenName: {
         type: String,
-        // required : true
+        // required : false
     },
     ManagerName: {
         type: String,
-        // required : true
+        // required : false
     },
     ManagerContact: {
         type: String,
-        // required : true
+        // required : false
     },
     status: {
         type: String,

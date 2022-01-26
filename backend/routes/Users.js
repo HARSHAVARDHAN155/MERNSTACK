@@ -6,10 +6,21 @@ var BCRYPT_SALT_ROUNDS = 12;
 const User = require("../models/Users");
 const Buyer = require("../models/Users1");
 const Vendor = require("../models/Vendor");
+const MyOrders = require("../models/Myorders");
 // GET request 
 // Getting all the users
 router.get("/", function (req, res) {
-    Buyer.find(function (err, users) {
+    MyOrders.find(function (err, users) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(users);
+        }
+    })
+});
+
+router.get("/myorders", function (req, res) {
+    MyOrders.find(function (err, users) {
         if (err) {
             console.log(err);
         } else {
@@ -59,6 +70,33 @@ router.post("/userregister", (req, res) => {
         });
 });
 
+router.post("/myorder", (req, res) => {
+    const newUser = new MyOrders({
+        food_name: req.body.Foodname,
+        price: req.body.price,
+        rating: req.body.rating,
+        buyer_email: req.body.buyer_email,
+        vendor_email: req.body.vendor_email,
+        CanteenName: req.body.CanteenName,
+        ManagerName: req.body.ManagerName,
+        ManagerContact: req.body.ManagerContact,
+        status: req.body.status,
+        FoodDiscription: req.body.FoodDiscription,
+        date: req.body.date,
+        time: req.body.time,
+        quantity: req.body.quantity
+    });
+
+    newUser.save()
+        .then(user => {
+            res.status(200).json(user);
+        })
+        .catch(err => {
+            res.status(400).send(err);
+        });
+});
+
+
 router.post("/buyer_edit", (req, res) => {
     console.log(req.body);
     const email = req.body.email;
@@ -68,12 +106,12 @@ router.post("/buyer_edit", (req, res) => {
         contactNumber: req.body.contactNumber,
         age: req.body.age,
         batch: req.body.batch,
-        wallet:req.body.wallet,
+        wallet: req.body.wallet,
         date: req.body.date,
         // password: req.body.password
     });
 
-    Buyer.findOne({ email}).then(
+    Buyer.findOne({ email }).then(
         user => {
             if (!user) {
                 response.val = 0;
@@ -81,11 +119,11 @@ router.post("/buyer_edit", (req, res) => {
             }
             else {
                 user.name = newUser.name,
-                user.contactNumber = newUser.contactNumber,
-                user.age = newUser.age,
-                user.batch = newUser.batch,
-                user.wallet = newUser.wallet,
-                user.save();
+                    user.contactNumber = newUser.contactNumber,
+                    user.age = newUser.age,
+                    user.batch = newUser.batch,
+                    user.wallet = newUser.wallet,
+                    user.save();
                 res.status(200).json(user);
             }
         }
@@ -99,15 +137,15 @@ router.post("/vendor_edit", (req, res) => {
         Managername: req.body.name,
         email: req.body.email,
         contactNumber: req.body.contactNumber,
-        Canteen : req.body.Canteen,
-        opening : req.body.opening,
-        closing :req.body.closing,
-        Address : req.body.Address,
+        Canteen: req.body.Canteen,
+        opening: req.body.opening,
+        closing: req.body.closing,
+        Address: req.body.Address,
         date: req.body.date,
         // password: req.body.password
     });
 
-  Vendor.findOne({ email}).then(
+    Vendor.findOne({ email }).then(
         user => {
             if (!user) {
                 response.val = 0;
@@ -115,13 +153,13 @@ router.post("/vendor_edit", (req, res) => {
             }
             else {
                 user.MangerName = newUser.Managername,
-                user.email = email,
-                user.contact = newUser.contactNumber,
-                user.CanteenName = newUser.Canteen,
-                user.opening = newUser.opening,
-                user.closing = newUser.closing,
-                user.Address = newUser.Address,
-                user.save();
+                    user.email = email,
+                    user.contact = newUser.contactNumber,
+                    user.CanteenName = newUser.Canteen,
+                    user.opening = newUser.opening,
+                    user.closing = newUser.closing,
+                    user.Address = newUser.Address,
+                    user.save();
                 res.status(200).json(user);
             }
         }
@@ -133,9 +171,9 @@ router.post("/vendor_edit", (req, res) => {
 //     console.log(req.body);
 //     const email = req.body.email;
 //     const newUser = ({
-       
+
 //         wallet:req.body.wallet,
-     
+
 //         // password: req.body.password
 //     });
 
@@ -224,14 +262,14 @@ router.post("/xxx", (req, res) => {
     let response = {
         val: "",
         email: "",
-        name:" ",
-        age:"",
-        batch:"",
-        contactNumber:" ",
-        wallet:"",
+        name: " ",
+        age: "",
+        batch: "",
+        contactNumber: " ",
+        wallet: "",
     };
 
-    Buyer.findOne({ email}).then(
+    Buyer.findOne({ email }).then(
         user => {
             if (!user) {
 
@@ -264,16 +302,16 @@ router.post("/vendor", (req, res) => {
     let response = {
         val: "",
         email: "",
-        Mangername:" ",
-        canteenname:"",
-        closing:"",
-        opening:"",
+        Mangername: " ",
+        canteenname: "",
+        closing: "",
+        opening: "",
         Address: "",
-        contactNumber:" ",
-        
+        contactNumber: " ",
+
     };
 
-    Vendor.findOne({ email}).then(
+    Vendor.findOne({ email }).then(
         user => {
             if (!user) {
 
