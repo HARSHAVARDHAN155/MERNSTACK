@@ -12,7 +12,7 @@ const MyOrdersSchema = new Schema({
         required: false
     },
     rating: {
-        type: Number,
+        type: String,
         default: 0,
         // required: false
     },
@@ -55,7 +55,7 @@ const MyOrdersSchema = new Schema({
         type: String,
     },
     quantity :{
-        type: String,
+        type: Number,
     }
 
 });

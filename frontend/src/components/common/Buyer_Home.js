@@ -91,7 +91,7 @@ function Buyer_Home() {
   const [FoodDiscription, setFoodDiscription] = useState("");
   const [date, setDate] = useState("");
   const [time, settime] = useState("");
-  const [quantity, setquantity] = useState(1);
+  const [quantity, setquantity] = useState(0);
 
   const [username, setUser] = useState("");
   const [contactNumber, setc] = useState("");
@@ -123,7 +123,7 @@ function Buyer_Home() {
           setc(response.data.contactNumber);
           setBatch(response.data.batch);
           // console.log(response.data);
-          console.log("here");
+          console.log("not require here");
 
         }
       })
@@ -133,9 +133,9 @@ function Buyer_Home() {
       );          // setc(response.contactNumber)
   }, [])
 
-  const [filteredData, setFilter] = useState([]);
-  const [newfilter, setNewfilter] = useState([]);
-  const [Quantity, setQ] = useState(1);
+  // const [filteredData, setFilter] = useState([]);
+  // const [newfilter, setNewfilter] = useState([]);
+  // const [NewQuantity, setQ] = useState(0);
 
 
   // Quantity Edit Need to edit more
@@ -169,7 +169,30 @@ function Buyer_Home() {
 
 
   const today = new Date();
+  const NewFood = {
+    Foodname: Foodname,
+    price: price,
+    rating: rating,
+    buyer_email: buyer_email,
+    vendor_email: vendor_email,
+    CanteenName: CanteenName,
+    ManagerName: ManagerName,
+    ManagerContact: ManagerContact,
+    status: status,
+    FoodDiscription: FoodDiscription,
+    date: date,
+    time: time,
+    quantity: quantity
+  }
+
   const Addtoorders = (id) => {
+    const NewQunatity = prompt("enter Quantity");
+    if (NewQunatity == null) {
+      return;
+    }
+    else {
+      setquantity(NewQunatity);
+    }
 
 
 
@@ -183,46 +206,39 @@ function Buyer_Home() {
       setcanteen(res.data.CanteenName);
       setManager(res.data.ManagerName);
       setManagerContact(res.data.ManagerContact);
-      setStatus("Confirm Order");
+      setStatus("pending");
       setFoodDiscription(res.data.FoodDiscription);
       settime(today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds())
       setDate(`${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`)
-      // console.log(res);
-
     })
 
+
+    // AddtoSchema();
 
   };
-  // console.log(NewFood);
-  const AddtoSchema = () => {
-    // event.preventDefault();
 
-    const NewFood = {
-      Foodname: Foodname,
-      price: price,
-      rating: rating,
-      buyer_email: buyer_email,
-      vendor_email: vendor_email,
-      CanteenName: CanteenName,
-      ManagerName: ManagerName,
-      ManagerContact: ManagerContact,
-      status: status,
-      FoodDiscription: FoodDiscription,
-      date: date,
-      time: time,
-      quantity: quantity
+  const AddtoSchema = () => {
+    console.log(NewFood);
+    if (quantity == 0) {
+      alert("please enter Quantity");
     }
 
+    else {
+      if (NewFood.Foodname == "") {
+        alert("Something went wrong..please click order again");
+      }
+      else {
+        axios.post("http://localhost:4000/user/myorder", NewFood).then((res) => {
 
-    axios.post("http://localhost:4000/user/myorder", NewFood).then((res) => {
+          alert("Ordered suceffuly");
+          { navigate("/myorders") }
 
-      alert("added to schema");
+          // console.log(res);
 
-      // console.log(res);
-
-    })
-
-
+        })
+      }
+    }
+    // event.preventDefault();
   };
 
   // if (searchInput === "") {
@@ -378,10 +394,16 @@ function Buyer_Home() {
                             Enter_Quantity
                           </Button></TableCell> */}
                           <TableCell><Button variant="contained" color="success" onClick={() => {
-                            { Addtoorders(user._id) }; {
+                            { Addtoorders(user._id) };
+                            // { navigate("/myorders") }
+                          }}>
+                            Enter_Quantity
+                          </Button></TableCell>
+                          <TableCell><Button variant="contained" color="success" onClick={() => {
+                            {
                               AddtoSchema()
                             };
-                            { navigate("/myorders") }
+                            // { navigate("/myorders") }
                           }}>
                             order_now
                           </Button></TableCell>
