@@ -36,6 +36,23 @@ router.post("/buyer_orders", function (req, res) {
     )
 });
 
+router.post("/vendor_orders", function (req, res) {
+    const vendor_email = req.body.email;
+    console.log(vendor_email);
+
+    MyOrders.find( {vendor_email} ).then(
+        user => {
+            if (!user) {
+                res.status(200).json("Nodata");
+            }
+
+            res.status(200).json(user);
+
+        }
+
+    )
+});
+
 router.get("/myorders", function (req, res) {
     MyOrders.find(function (err, users) {
         if (err) {

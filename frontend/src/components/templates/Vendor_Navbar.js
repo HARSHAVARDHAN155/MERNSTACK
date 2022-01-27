@@ -25,14 +25,18 @@ const Vendor_Navbar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Button color="inherit" onClick={() => navigate("/vendor_home")}>
-          Home
+          Vendor Home
+          </Button>
+          <Button color="inherit" onClick={() => navigate("/vendor_orderpage")}>
+         Vendor  orders
           </Button>
           <Button color="inherit" onClick={() => navigate("/foodmenu")}>
-         Food menu
+         Vendor Food menu
           </Button>
           <Button color="inherit" onClick={() => { localStorage.setItem("type", ""); navigate("/")}}>
           Logout
           </Button>
+          
           {/* <Button color="inherit" onClick={() => navigate("/vendor_edit")}>
            Profile Edit
           </Button> */}

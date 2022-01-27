@@ -206,7 +206,7 @@ function Buyer_Home() {
       setcanteen(res.data.CanteenName);
       setManager(res.data.ManagerName);
       setManagerContact(res.data.ManagerContact);
-      setStatus("pending");
+      setStatus("PLACED");
       setFoodDiscription(res.data.FoodDiscription);
       settime(today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds())
       setDate(`${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`)

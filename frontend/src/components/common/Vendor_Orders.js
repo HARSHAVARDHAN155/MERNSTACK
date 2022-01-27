@@ -22,15 +22,17 @@ import Divider from "@mui/material/Divider";
 import Autocomplete from "@mui/material/Autocomplete";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
+import Vendor_Navbar from "../templates/Vendor_Navbar";
 
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
 
-const Myorders_buyer = (props) => {
+const Vendor_Order = (props) => {
     const navigate = useNavigate();
     const [email, setEmail] = useState(localStorage.getItem("email"));
     const [users, setUsers] = useState([]);
+    const status = ["PLACED", "ACCEPTED", "COOKING", "READY FOR PICK UP", "COMPLETED"];
     const Nuser = {
         email: email,
     }
@@ -46,71 +48,137 @@ const Myorders_buyer = (props) => {
                 console.log(error);
             });
     }, []);
+    const [currentstatus, setstatus] = useState("");
+    const [newstatus, setnew] = useState("");
+    const findstatus = (id) => {
+        // console.log(id);
+        const item = {
+            id: id,
+        }
+        axios.post("http://localhost:4000/vendor/findstatus", item).then((response) => {
+            setstatus(response.data.status);
+        })
+        console.log(currentstatus);
+        status_update(id);
+    }
 
 
+    const status_update = (id) => {
+        if (currentstatus === "PLACED") {
+            console.log("coming");
+            setnew("ACCEPTED");
+
+        }
+        else if(currentstatus==="ACCEPTED"){
+            setnew("COOKING");
+        }
+        else if(currentstatus==="COOKING"){
+            setnew("READY FOR PICKUP");
+        }
+        else if (currentstatus ==="READY FOR PICKUP"){
+            setnew("COMPLETED");
+        }
+        else{
+            alert("order finished")
+        }
+        const updating = {
+            id: id,
+            status: newstatus
+
+        }
+        if (newstatus !== "") {
+            console.log(updating);
+            axios.put("http://localhost:4000/vendor/update-status", updating).then((response) => {
+
+            })
+        }
 
 
-    return (
-        <div>
-            <div> <Buyer_Navbar></Buyer_Navbar></div>
-            {/* <div> <Wallet /> </div> */}
-            <h3 className="center"> My Orders</h3>
+    }
+
+    if (users.length !== 0) {
+        return (
             <div>
-                <Box>
-                    <Grid container>
+                <div> <Vendor_Navbar /> </div>
+                {/* <div> <Wallet /> </div> */}
+                <h3 className="center"> Recived Orders</h3>
+                <div>
+                    <Box>
+                        <Grid container>
 
-                        <Grid item xs={12} md={9} lg={19}>
-                            <Paper>
-                                <Table size="small">
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell> Sr No.</TableCell>
+                            <Grid item xs={12} md={9} lg={19}>
+                                <Paper>
+                                    <Table size="small">
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell> Sr No.</TableCell>
 
-                                            <TableCell>Orderd Date</TableCell>
-                                            <TableCell>Time Of Order</TableCell>
-                                            <TableCell>Item</TableCell>
-                                            <TableCell>price</TableCell>
-                                            <TableCell>Veg/Non-veg</TableCell>
-                                            <TableCell>Canteen</TableCell>
-                                            <TableCell>Quantity</TableCell>
-                                            <TableCell>Vendor_Name</TableCell>
-                                            <TableCell>Vendor_email</TableCell>
-                                            <TableCell>Vendor_Contact </TableCell>
-                                            <TableCell>Status</TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {(users).map((user, ind) => (
-                                            <TableRow key={ind}>
-                                                <TableCell>{ind + 1}</TableCell>
-                                                
-                                                {/* <TableCell>{user.date}</TableCell> */}
-                                                <TableCell>{user.date}</TableCell>
-                                                <TableCell>{user.time}</TableCell>
-                                                <TableCell>{user.food_name}</TableCell>
-                                                <TableCell>{user.price}</TableCell>
-                                                <TableCell>{user.FoodDiscription}</TableCell>
-                                                <TableCell>{user.CanteenName}</TableCell>
-                                                <TableCell>{user.quantity}</TableCell>
-                                                <TableCell>{user.ManagerName}</TableCell>
-                                                <TableCell>{user.vendor_email}</TableCell>
-                                                <TableCell>{user.ManagerContact}</TableCell>
-                                                <TableCell>{user.status}</TableCell>
-
-
+                                                <TableCell>Orderd Date</TableCell>
+                                                <TableCell>Time Of Order</TableCell>
+                                                <TableCell>Item</TableCell>
+                                                <TableCell>price</TableCell>
+                                                <TableCell>Veg/Non-veg</TableCell>
+                                                <TableCell>Canteen</TableCell>
+                                                <TableCell>Quantity</TableCell>
+                                                <TableCell>Vendor_Name</TableCell>
+                                                <TableCell>Vendor_email</TableCell>
+                                                <TableCell>Vendor_Contact </TableCell>
+                                                <TableCell>Status</TableCell>
                                             </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            </Paper>
+                                        </TableHead>
+                                        <TableBody>
+                                            {(users).map((user, ind) => (
+                                                <TableRow key={ind}>
+                                                    <TableCell>{ind + 1}</TableCell>
+
+                                                    {/* <TableCell>{user.date}</TableCell> */}
+                                                    <TableCell>{user.date}</TableCell>
+                                                    <TableCell>{user.time}</TableCell>
+                                                    <TableCell>{user.food_name}</TableCell>
+                                                    <TableCell>{user.price}</TableCell>
+                                                    <TableCell>{user.FoodDiscription}</TableCell>
+                                                    <TableCell>{user.CanteenName}</TableCell>
+                                                    <TableCell>{user.quantity}</TableCell>
+                                                    <TableCell>{user.ManagerName}</TableCell>
+                                                    <TableCell>{user.buyer_email}</TableCell>
+                                                    <TableCell>{user.ManagerContact}</TableCell>
+                                                    <TableCell>{user.status}</TableCell>
+                                                    <TableCell><Button variant="contained" color="success" onClick={() => {
+                                                        findstatus(user._id);
+                                                    }}>
+                                                        MOVE_TO_NEXT_STAGE
+                                                    </Button></TableCell>
+                                                    <TableCell><Button variant="contained" color="error" onClick={() => { status_update(user._id); }}>
+                                                        reject
+                                                    </Button></TableCell>
+
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </Paper>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Box>
+                    </Box>
+                </div>
+
+
             </div>
 
+        );
+    }
+    else {
+        return (
+            <div>
+                <div> <Vendor_Navbar /></div>
+                {/* <div> <Wallet /> </div> */}
+                <h3 className="center"> Orders Recived</h3>
+                <h1 > <center>----- No Orders ----- </center></h1>
 
-        </div>
 
-    );
+            </div>
+
+        );
+    }
 };
-export default Myorders_buyer;
+export default Vendor_Order;
