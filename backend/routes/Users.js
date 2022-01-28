@@ -38,7 +38,7 @@ router.post("/buyer_orders", function (req, res) {
 
 router.post("/vendor_orders", function (req, res) {
     const vendor_email = req.body.email;
-    console.log(vendor_email);
+    // console.log(vendor_email);
 
     MyOrders.find( {vendor_email} ).then(
         user => {
@@ -294,6 +294,7 @@ router.post("/xxx", (req, res) => {
     const email = req.body.email;
     console.log(req.body);
     let response = {
+        id:"",
         val: "",
         email: "",
         name: " ",
@@ -313,6 +314,7 @@ router.post("/xxx", (req, res) => {
             }
             else {
                 arr = 1;
+                response.id = user._id;
                 response.val = 1;
                 response.email = email;
                 response.name = user.name;

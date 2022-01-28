@@ -50,7 +50,9 @@ const Vendor_Order = (props) => {
     }, []);
     const [currentstatus, setstatus] = useState("");
     const [newstatus, setnew] = useState("");
-    const findstatus = (id) => {
+    const [reject, setreject] = useState("");
+
+    const Findstatus = (id) => {
         // console.log(id);
         const item = {
             id: id,
@@ -59,33 +61,51 @@ const Vendor_Order = (props) => {
             setstatus(response.data.status);
         })
         console.log(currentstatus);
-        status_update(id);
+        
+
+    }
+    const rejecting = () => {
+        setreject("REJECTED")
+
     }
 
-
     const status_update = (id) => {
-        if (currentstatus === "PLACED") {
+
+        console.log(reject);
+        if (reject === "REJECTED") {
+            console.log("coming");
+            setnew("REJECTED");
+            setreject("");
+
+
+        }
+        else if (currentstatus === "PLACED") {
             console.log("coming");
             setnew("ACCEPTED");
 
         }
-        else if(currentstatus==="ACCEPTED"){
+        else if (currentstatus === "ACCEPTED") {
             setnew("COOKING");
         }
-        else if(currentstatus==="COOKING"){
+        else if (currentstatus === "COOKING") {
             setnew("READY FOR PICKUP");
         }
-        else if (currentstatus ==="READY FOR PICKUP"){
+        else if (currentstatus === "READY FOR PICKUP") {
             setnew("COMPLETED");
         }
-        else{
-            alert("order finished")
+        else if (currentstatus === "REJECTED") {
+            alert("order REJECTED already")
         }
+        else if (currentstatus === "COMPLETED") {
+            alert("order COMPLETED already")
+        }
+        
         const updating = {
             id: id,
             status: newstatus
 
         }
+
         if (newstatus !== "") {
             console.log(updating);
             axios.put("http://localhost:4000/vendor/update-status", updating).then((response) => {
@@ -144,11 +164,13 @@ const Vendor_Order = (props) => {
                                                     <TableCell>{user.ManagerContact}</TableCell>
                                                     <TableCell>{user.status}</TableCell>
                                                     <TableCell><Button variant="contained" color="success" onClick={() => {
-                                                        findstatus(user._id);
+                                                        Findstatus(user._id);
+                                                        // console.log();
+                                                        status_update(user._id);
                                                     }}>
                                                         MOVE_TO_NEXT_STAGE
                                                     </Button></TableCell>
-                                                    <TableCell><Button variant="contained" color="error" onClick={() => { status_update(user._id); }}>
+                                                    <TableCell><Button variant="contained" color="error" onClick={() => { rejecting(); status_update(user._id); }}>
                                                         reject
                                                     </Button></TableCell>
 

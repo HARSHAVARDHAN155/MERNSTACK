@@ -97,10 +97,24 @@ function Buyer_Home() {
   const [contactNumber, setc] = useState("");
   const [age, setAge] = useState("");
   const [batch, setBatch] = useState("");
+  const [a, b] = useState(0);
+  const [c, d] = useState(0);
+  const [total, setTotal] = useState(0);
 
   const [email, setEmail] = useState(localStorage.getItem("email"));
   const [type, setType] = useState(localStorage.getItem("type"));
+  const onChangeAmount = (event) => {
+    b(event.target.value);
+    console.log(a);
+  };
+  const Ontotal = (event) => {
+    setTotal(parseInt(total) + parseInt(a));
+  }
+  const onSubmit = (event) => {
+    event.preventDefault();
+    Ontotal();
 
+  }
   const Nuser = {
     email: email,
 
@@ -119,11 +133,12 @@ function Buyer_Home() {
         if (response.data.val == 1) {
           // console.log(response.data);
           setUser(response.data.name);
+          setTotal(response.data.wallet);
           setAge(response.data.age);
           setc(response.data.contactNumber);
           setBatch(response.data.batch);
           // console.log(response.data);
-          console.log("not require here");
+          console.log(response.data);
 
         }
       })
@@ -254,6 +269,29 @@ function Buyer_Home() {
     <div>
       <div> <Buyer_Navbar></Buyer_Navbar></div>
       <div> <Wallet /> </div>
+      {/* <div>
+        <h1><center> Wallet</center></h1>
+        <div> <center>Wallet amount : {total}</center>
+        </div>
+        <div style={{ marginTop: 40 }} >
+          <Grid container align={"center"} spacing={3}>
+
+            <Grid item xs={12}>
+              <TextField
+                label="enter amount"
+                variant="outlined"
+                value={a}
+                onChange={onChangeAmount}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Button variant="contained" onClick={onSubmit}>
+                add to wallet
+              </Button>
+            </Grid>
+          </Grid>
+        </div>
+      </div> */}
       <Box>
         <div>
           <div style={{ backgroundColor: "#FAE03B", padding: 30, textAlign: "center", marginTop: 100, fontSize: 30 }}>
@@ -364,6 +402,7 @@ function Buyer_Home() {
                         <TableCell>Canteen Address</TableCell>
                         {/* <TableCell>Quantity</TableCell>
                         <TableCell>Enter_Quantity</TableCell> */}
+                        <TableCell>Quantity</TableCell>
                         <TableCell>Order_Now</TableCell>
                       </TableRow>
                     </TableHead>

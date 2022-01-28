@@ -75,6 +75,14 @@ router.put("/update-status", async (req, res) => {
     // })
 })
 
+
+    // await Myorders.findByIdAndUpdate(id, { status }, (err, data) => {
+
+    //     if (err) return res.json({ status: 500, msg: err.message })
+    //     res.json({ status: 200, msg: "Status updated sucessfully" + status })
+    // })
+
+
 router.put("/update", async (req, res) => {
     const Newprice = req.body.Newprice;
     const Newname = req.body.Newname;
