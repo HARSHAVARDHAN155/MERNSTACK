@@ -22,7 +22,7 @@ import Divider from "@mui/material/Divider";
 import Autocomplete from "@mui/material/Autocomplete";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
-
+// import Fuse from "fuse";
 import SearchIcon from "@mui/icons-material/Search";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
@@ -37,6 +37,7 @@ function Buyer_Home() {
   const navigate = useNavigate();
   // USERS LIST
   const [users, setUsers] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [sortedUsers, setSortedUsers] = useState([]);
   const [sortName, setSortName] = useState(true);
   const [searchText, setSearchText] = useState("");
@@ -112,7 +113,15 @@ function Buyer_Home() {
   }
   const onSubmit = (event) => {
     event.preventDefault();
-    Ontotal();
+
+
+    axios.post("http://localhost:4000/user/buyer_wallet", { email: email, wallet: parseInt(total) + parseInt(a) }).then((res) => {
+      console.log(total)
+      console.log(res);
+      Ontotal();
+    })
+
+
 
   }
   const Nuser = {
@@ -148,39 +157,11 @@ function Buyer_Home() {
       );          // setc(response.contactNumber)
   }, [])
 
-  // const [filteredData, setFilter] = useState([]);
-  // const [newfilter, setNewfilter] = useState([]);
-  // const [NewQuantity, setQ] = useState(0);
-
-
-  // Quantity Edit Need to edit more
-  //   const update = (id) => {
-
-  //     const NewQunatity = prompt("enter Qunatity");
-  //     if(NewQunatity == null){
-  //         return;
-  //     }
-
-  //     axios.put("http://localhost:4000/vendor/updateQunatity", { NewQunatity: NewQunatity, id: id }).then(() => {
-
-  //         // setUsers(users.map((user) => {
-  //         //     return user._id == id ? { _id: id, name: Newname,rating:user.rating, price: Newprice, date: user.data, FoodDiscription: user.FoodDiscription, add_ons: user.add_ons} : user;
-  //         // }))
-  //         alert("Quantity updated successfully");
-  //     })
-
-  // };
   const onChangeSearch = (event) => {
     setinput(event.target.value);
   }
 
-  // function search(users) {
 
-  //   return users.filter((rows) => rows.name.toLowercase().indexOf(searchInput) > -1);
-  // }
-  // const NewOrder = {
-
-  // }
 
 
   const today = new Date();
@@ -237,7 +218,11 @@ function Buyer_Home() {
     if (quantity == 0) {
       alert("please enter Quantity");
     }
+    else if (total < (quantity * price)) {
+      setquantity(0);
+      alert("Your wallet balance is low ");
 
+    }
     else {
       if (NewFood.Foodname == "") {
         alert("Something went wrong..please click order again");
@@ -246,6 +231,11 @@ function Buyer_Home() {
         axios.post("http://localhost:4000/user/myorder", NewFood).then((res) => {
 
           alert("Ordered suceffuly");
+          axios.post("http://localhost:4000/user/buyer_wallet", { email: email, wallet: parseInt(total) - parseInt(quantity * price) }).then((res) => {
+            console.log(total)
+            console.log(res);
+            // Ontotal();
+          })
           { navigate("/myorders") }
 
           // console.log(res);
@@ -256,20 +246,57 @@ function Buyer_Home() {
     // event.preventDefault();
   };
 
-  // if (searchInput === "") {
-  //   setFilter(users);
-  // }
-  // else {
-  //   setFilter(newfilter);
-  // }
+  useEffect(() => {
+
+    axios
+      .post("http://localhost:4000/user/buyer_orders", Nuser)
+      .then((response) => {
+        console.log(response.data);
+        setOrders(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      }).then(() => {
+
+        // for (let i = 0; i < orders.length; i++) {
+        //   if (orders[i].status === "REJECTED") {
+        //     console.log("rejecting adding")
+        //     axios.post("http://localhost:4000/user/buyer_wallet", { email: email, wallet: parseInt(total) + parseInt((orders[i].price)) * parseInt(orders[i].quantity) }).then((res) => {
+        //       console.log(total)
+        //       console.log(res);
+        //       Ontotal();
+        //     }).catch((error) => {
+        //       console.log(error);
+        //     }).then(() => {
+        //       axios
+        //         .post('http://localhost:4000/user/xxx', Nuser)
+        //         .then((response) => {
+        //           // console.log(response.data);
+        //           if (response.data.val == 1) {
+
+        //             setTotal(response.data.wallet);
+
+        //           }
+        //         })
+        //         .catch((error) => {
+        //           console.log(error);
+        //         }
+        //         );
+        //     })
+        //   }
+
+        // }
+      })
+  }, [])
+
 
   console.log(searchInput);
 
   return (
     <div>
       <div> <Buyer_Navbar></Buyer_Navbar></div>
-      <div> <Wallet /> </div>
-      {/* <div>
+      {/* <div> <Wallet /> </div> */}
+      <div>
         <h1><center> Wallet</center></h1>
         <div> <center>Wallet amount : {total}</center>
         </div>
@@ -291,7 +318,7 @@ function Buyer_Home() {
             </Grid>
           </Grid>
         </div>
-      </div> */}
+      </div>
       <Box>
         <div>
           <div style={{ backgroundColor: "#FAE03B", padding: 30, textAlign: "center", marginTop: 100, fontSize: 30 }}>
@@ -408,6 +435,7 @@ function Buyer_Home() {
                     </TableHead>
                     <TableBody>
                       {(users).map((user, ind) => (
+
                         <TableRow key={ind}>
                           <TableCell>{ind}</TableCell>
                           {/* <TableCell>{user.date}</TableCell> */}

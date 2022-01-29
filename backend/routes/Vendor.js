@@ -68,19 +68,11 @@ router.put("/update-status", async (req, res) => {
     } catch (err) {
         console.log(err);
     }
-    // await Myorders.findByIdAndUpdate(id, { status }, (err, data) => {
-
-    //     if (err) return res.json({ status: 500, msg: err.message })
-    //     res.json({ status: 200, msg: "Status updated sucessfully" + status })
-    // })
+    
 })
 
 
-    // await Myorders.findByIdAndUpdate(id, { status }, (err, data) => {
-
-    //     if (err) return res.json({ status: 500, msg: err.message })
-    //     res.json({ status: 200, msg: "Status updated sucessfully" + status })
-    // })
+   
 
 
 router.put("/update", async (req, res) => {

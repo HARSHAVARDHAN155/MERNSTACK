@@ -115,9 +115,9 @@ export default function Vendor_Statiscits() {
         <h1><center> Pendig : {Pendingplaced}</center></h1>
         <h1><center> Completed: {Completed}</center></h1>
         <h1><center> Rejected Orders: {reject}</center></h1>
-        <Button variant="contained" color="success" onClick={() => { fun(); }}>
+        <center><Button variant="contained" color="success" onClick={() => { fun(); }}>
             statistics refresh
-        </Button>
+        </Button></center>
         {/* <Button variant="contained" color="success" onClick={() => { top(); }}>
             top
         </Button> */}

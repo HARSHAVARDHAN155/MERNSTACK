@@ -51,7 +51,10 @@ const Vendor_Order = (props) => {
     const [currentstatus, setstatus] = useState("");
     const [newstatus, setnew] = useState("");
     const [reject, setreject] = useState("");
-
+    const [total, setTotal] = useState("");
+    const [quantity, setQ] = useState(0);
+    const [price, setprice] = useState(0);
+    const [buyer_email, setbuyer] = useState("");
     const Findstatus = (id) => {
         // console.log(id);
         const item = {
@@ -59,13 +62,57 @@ const Vendor_Order = (props) => {
         }
         axios.post("http://localhost:4000/vendor/findstatus", item).then((response) => {
             setstatus(response.data.status);
+        }).then(() => {
+            status_update(id);
         })
         console.log(currentstatus);
-        
+
 
     }
-    const rejecting = () => {
-        setreject("REJECTED")
+
+    const details = (id) => {
+        const item = {
+            id: id,
+        }
+        axios.post("http://localhost:4000/vendor/findstatus", item).then((response) => {
+            setQ(response.data.quantity);
+            setbuyer(response.data.buyer_email);
+            setprice(response.data.price);
+            console.log(response.data);
+        }).then(() => {
+            axios
+                .post('http://localhost:4000/user/xxx', { email: buyer_email })
+                .then((response) => {
+                    // console.log(response.data);
+                    if (response.data.val == 1) {
+
+                        setTotal(response.data.wallet);
+                        console.log(response.data.wallet);
+
+                    }
+                }).then(() => {
+                    axios.post("http://localhost:4000/user/buyer_wallet", { email: buyer_email, wallet: parseInt(total) + parseInt(quantity) * parseInt(price) }).then((res) => {
+                        console.log(total)
+                        alert("amount refunded successfully");
+                        window.location.reload(false);
+                        console.log(res);
+                       
+                    })
+                   
+                })
+                .catch((error) => {
+                    console.log(error);
+                }
+                );
+            // status_update(id);
+        })
+    }
+
+
+    const rejecting = (id) => {
+        details(id);
+        setreject("REJECTED");
+
 
     }
 
@@ -99,7 +146,7 @@ const Vendor_Order = (props) => {
         else if (currentstatus === "COMPLETED") {
             alert("order COMPLETED already")
         }
-        
+
         const updating = {
             id: id,
             status: newstatus
@@ -109,6 +156,7 @@ const Vendor_Order = (props) => {
         if (newstatus !== "") {
             console.log(updating);
             axios.put("http://localhost:4000/vendor/update-status", updating).then((response) => {
+                window.location.reload(false);
 
             })
         }
@@ -141,7 +189,7 @@ const Vendor_Order = (props) => {
                                                 <TableCell>Canteen</TableCell>
                                                 <TableCell>Quantity</TableCell>
                                                 <TableCell>Vendor_Name</TableCell>
-                                                <TableCell>Vendor_email</TableCell>
+                                                <TableCell>Buyer_email</TableCell>
                                                 <TableCell>Vendor_Contact </TableCell>
                                                 <TableCell>Status</TableCell>
                                             </TableRow>
@@ -166,13 +214,32 @@ const Vendor_Order = (props) => {
                                                     <TableCell><Button variant="contained" color="success" onClick={() => {
                                                         Findstatus(user._id);
                                                         // console.log();
-                                                        status_update(user._id);
+                                                        // status_update(user._id);
                                                     }}>
                                                         MOVE_TO_NEXT_STAGE
                                                     </Button></TableCell>
-                                                    <TableCell><Button variant="contained" color="error" onClick={() => { rejecting(); status_update(user._id); }}>
-                                                        reject
-                                                    </Button></TableCell>
+
+                                                    <TableCell>
+                                                        {(() => {
+
+                                                            if (user.status == "PLACED") {
+
+
+                                                                return (
+                                                                    <Button variant="contained" color="error" onClick={() => {
+                                                                        rejecting(user._id); status_update(user._id);
+
+                                                                    }}>
+                                                                        reject
+                                                                    </Button>
+
+                                                                )
+                                                            }
+
+                                                        })()}
+
+
+                                                    </TableCell>
 
                                                 </TableRow>
                                             ))}

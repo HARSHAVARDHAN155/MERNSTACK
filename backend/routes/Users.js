@@ -201,30 +201,32 @@ router.post("/vendor_edit", (req, res) => {
 });
 
 
-// router.post("/buyer_wallet", (req, res) => {
-//     console.log(req.body);
-//     const email = req.body.email;
-//     const newUser = ({
+router.post("/buyer_wallet", (req, res) => {
+    console.log("here is buyer")
+    console.log(req.body);
+    const email = req.body.email;
+    const newUser = ({
 
-//         wallet:req.body.wallet,
+        wallet:req.body.wallet,
 
-//         // password: req.body.password
-//     });
+        // password: req.body.password
+    });
 
-//     Buyer.findOne({ email}).then(
-//         user => {
-//             if (!user) {
-//                 response.val = 0;
-//                 res.status(400).send(err);
-//             }
-//             else {
-//                 user.wallet = newUser.wallet,
-//                 user.save();
-//                 res.status(200).json(user);
-//             }
-//         }
-//     )
-// });
+    Buyer.findOne({ email}).then(
+        user => {
+            if (!user) {
+                res.status(400);
+            }
+            else {
+                console.log("here");
+                user.wallet = newUser.wallet,
+                user.save();
+                console.log(user.wallet);
+                res.status(200).json(user);
+            }
+        }
+    )
+});
 
 // router.post("/buyer", (req, res) => {
 //     Buyer.findOne({ email: req.body.email }), function (err, users) {

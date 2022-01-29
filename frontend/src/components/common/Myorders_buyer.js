@@ -32,9 +32,26 @@ const Myorders_buyer = (props) => {
     const [email, setEmail] = useState(localStorage.getItem("email"));
     const [users, setUsers] = useState([]);
     const [respon, setres] = useState("");
+    const [total, setTotal] = useState(0);
     const Nuser = {
         email: email,
     }
+    useEffect(() => {
+        axios
+            .post('http://localhost:4000/user/xxx', Nuser)
+            .then((response) => {
+                // console.log(response.data);
+                if (response.data.val == 1) {
+
+                    setTotal(response.data.wallet);
+
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            }
+            );          // setc(response.contactNumber)
+    }, [])
     console.log(email);
     useEffect(() => {
         axios
@@ -98,6 +115,17 @@ const Myorders_buyer = (props) => {
                                                         <TableCell>{user.vendor_email}</TableCell>
                                                         <TableCell>{user.ManagerContact}</TableCell>
                                                         <TableCell>{user.status}</TableCell>
+                                                        {
+                                                            // (() => {
+                                                            //     if (user.status == "REJECTED") {
+                                                            //         axios.post("http://localhost:4000/user/buyer_wallet", { email: email, wallet: parseInt(total) + parseInt(user.quantity * user.price) }).then((res) => {
+                                                            //             console.log(total)
+                                                            //             console.log(res);
+                                                            //             // Ontotal();
+                                                            //         })
+                                                            //     }
+                                                            // })
+                                                        }
 
 
                                                     </TableRow>
@@ -116,7 +144,7 @@ const Myorders_buyer = (props) => {
 
         );
     }
-    else{
+    else {
         return (
             <div>
                 <div> <Buyer_Navbar></Buyer_Navbar></div>
