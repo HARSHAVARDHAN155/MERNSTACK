@@ -18,6 +18,7 @@ import Vendor_edit from "./components/common/vendor_edit";
 import Fooditem_vendor from "./components/common/Fooditem_vendor";
 import AddFooditem from "./components/common/AddFooditem";
 import Myorders_buyer from "./components/common/Myorders_buyer";
+import Fav from "./components/common/Fav";
 import Vendor_Order from "./components/common/Vendor_Orders";
 import Vendor_Statiscits from "./components/common/Vendor_statistics";
 const Layout = () => {
@@ -47,6 +48,7 @@ function App() {
           <Route path="foodmenu" element={<Fooditem_vendor/>} />
           <Route path="statistics" element={<Vendor_Statiscits/>} />
           <Route path="vendor_home" element={<Vendor_Home />} />
+          <Route path="fav" element={<Fav />} />
           <Route path="allregister" element={<Common_registration />} />
           <Route path="user_register" element={<UserRegister />} />
           <Route path="vendor_register" element={<VendorRegister />} />

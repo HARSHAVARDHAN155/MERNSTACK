@@ -55,6 +55,22 @@ const Vendor_Order = (props) => {
     const [quantity, setQ] = useState(0);
     const [price, setprice] = useState(0);
     const [buyer_email, setbuyer] = useState("");
+    const [maxorders, setmax] = useState(0);
+
+
+    useEffect(() => {
+        var b = 0;
+        for (let i = 0; i < users.length; i++) {
+            if (users[i].status == "ACCEPTED" || users[i].status === "COOKING") {
+                b++;
+            }
+        }
+        // console.log(b);
+        setmax(b);
+
+    }, [])
+
+
     const Findstatus = (id) => {
         // console.log(id);
         const item = {
@@ -96,9 +112,9 @@ const Vendor_Order = (props) => {
                         alert("amount refunded successfully");
                         window.location.reload(false);
                         console.log(res);
-                       
+
                     })
-                   
+
                 })
                 .catch((error) => {
                     console.log(error);
@@ -115,6 +131,7 @@ const Vendor_Order = (props) => {
 
 
     }
+    console.log("max orders",maxorders);
 
     const status_update = (id) => {
 
@@ -127,8 +144,15 @@ const Vendor_Order = (props) => {
 
         }
         else if (currentstatus === "PLACED") {
-            console.log("coming");
-            setnew("ACCEPTED");
+
+            if (maxorders > 2) {
+                alert("can't take any more orders")
+            }
+            else {
+                console.log("coming");
+
+                setnew("ACCEPTED");
+            }
 
         }
         else if (currentstatus === "ACCEPTED") {
@@ -210,7 +234,15 @@ const Vendor_Order = (props) => {
                                                     <TableCell>{user.ManagerName}</TableCell>
                                                     <TableCell>{user.buyer_email}</TableCell>
                                                     <TableCell>{user.ManagerContact}</TableCell>
-                                                    <TableCell>{user.status}</TableCell>
+                                                    <TableCell>
+                                                        <Button variant="contained" color="secondary" >
+                                                            {user.status}
+
+                                                        </Button>
+
+
+
+                                                    </TableCell>
                                                     <TableCell><Button variant="contained" color="success" onClick={() => {
                                                         Findstatus(user._id);
                                                         // console.log();

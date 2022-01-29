@@ -23,7 +23,7 @@ router.post("/buyer_orders", function (req, res) {
     const buyer_email = req.body.email;
     console.log(buyer_email);
 
-    MyOrders.find( {buyer_email} ).then(
+    MyOrders.find({ buyer_email }).then(
         user => {
             if (!user) {
                 res.status(200).json("Nodata");
@@ -40,7 +40,7 @@ router.post("/vendor_orders", function (req, res) {
     const vendor_email = req.body.email;
     // console.log(vendor_email);
 
-    MyOrders.find( {vendor_email} ).then(
+    MyOrders.find({ vendor_email }).then(
         user => {
             if (!user) {
                 res.status(200).json("Nodata");
@@ -200,6 +200,25 @@ router.post("/vendor_edit", (req, res) => {
     )
 });
 
+router.post("/fav", (req, res) => {
+    const email = req.body.email;
+    const name = req.body.name;
+    Buyer.findOne({ email }).then(
+        user => {
+            if (!user) {
+
+                res.status(400).send(err);
+            }
+            else {
+                user.fav.push(name);
+                user.save();
+                res.status(200).json(user);
+            }
+        }
+    )
+
+});
+
 
 router.post("/buyer_wallet", (req, res) => {
     console.log("here is buyer")
@@ -207,12 +226,12 @@ router.post("/buyer_wallet", (req, res) => {
     const email = req.body.email;
     const newUser = ({
 
-        wallet:req.body.wallet,
+        wallet: req.body.wallet,
 
         // password: req.body.password
     });
 
-    Buyer.findOne({ email}).then(
+    Buyer.findOne({ email }).then(
         user => {
             if (!user) {
                 res.status(400);
@@ -220,7 +239,7 @@ router.post("/buyer_wallet", (req, res) => {
             else {
                 console.log("here");
                 user.wallet = newUser.wallet,
-                user.save();
+                    user.save();
                 console.log(user.wallet);
                 res.status(200).json(user);
             }
@@ -296,7 +315,7 @@ router.post("/xxx", (req, res) => {
     const email = req.body.email;
     console.log(req.body);
     let response = {
-        id:"",
+        id: "",
         val: "",
         email: "",
         name: " ",
@@ -325,6 +344,29 @@ router.post("/xxx", (req, res) => {
                 response.wallet = user.wallet;
                 response.contactNumber = user.contactNumber;
                 res.json(response);
+            }
+        }
+    )
+
+    // res.status(200).json(user);
+
+});
+
+router.post("/buyerdetails", (req, res) => {
+
+    const email = req.body.email;
+
+
+    Buyer.findOne({ email }).then(
+        user => {
+            if (!user) {
+
+
+                res.json(response.val);
+
+            }
+            else {
+                res.status(200).json(user.fav);
             }
         }
     )

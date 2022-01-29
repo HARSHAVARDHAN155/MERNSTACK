@@ -114,7 +114,13 @@ const Myorders_buyer = (props) => {
                                                         <TableCell>{user.ManagerName}</TableCell>
                                                         <TableCell>{user.vendor_email}</TableCell>
                                                         <TableCell>{user.ManagerContact}</TableCell>
-                                                        <TableCell>{user.status}</TableCell>
+                                                        <TableCell>
+
+                                                            <Button variant="contained" color="secondary" >
+                                                                { user.status }
+                                                            
+                                                            </Button>
+                                                        </TableCell>
                                                         {
                                                             // (() => {
                                                             //     if (user.status == "REJECTED") {

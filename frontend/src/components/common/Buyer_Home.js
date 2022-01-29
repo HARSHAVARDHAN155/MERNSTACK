@@ -2,6 +2,7 @@ import { blue } from "@mui/material/colors";
 import { Box, fontSize } from "@mui/system";
 import { useState, useEffect } from "react";
 import Navbar from "../templates/Navbar";
+import SendIcon from '@mui/icons-material/Send';
 import React, { Component } from 'react';
 import Buyer_Navbar from "../templates/Buyer_Navbar";
 import axios from "axios";
@@ -42,10 +43,14 @@ function Buyer_Home() {
   const [sortName, setSortName] = useState(true);
   const [searchText, setSearchText] = useState("");
   const [searchInput, setinput] = useState("");
+  const [currenttime, setcurrent] = useState("");
+
 
 
 
   useEffect(() => {
+    setcurrent(today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds());
+    console.log(currenttime);
     axios
       .get("http://localhost:4000/vendor/food")
       .then((response) => {
@@ -288,8 +293,14 @@ function Buyer_Home() {
         // }
       })
   }, [])
+  // settime(today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds())
 
-
+const Addtofav = (name) =>{
+  axios.post("http://localhost:4000/user/fav",{email:email,name:name}).then((res)=>{
+    alert("added to favourites successfully");
+    console.log(res.data)
+  })
+}
   console.log(searchInput);
 
   return (
@@ -429,6 +440,7 @@ function Buyer_Home() {
                         <TableCell>Canteen Address</TableCell>
                         {/* <TableCell>Quantity</TableCell>
                         <TableCell>Enter_Quantity</TableCell> */}
+                        <TableCell>Favorites</TableCell>
                         <TableCell>Quantity</TableCell>
                         <TableCell>Order_Now</TableCell>
                       </TableRow>
@@ -449,24 +461,44 @@ function Buyer_Home() {
                           <TableCell>{user.opening}</TableCell>
                           <TableCell>{user.closing}</TableCell>
                           <TableCell>{user.Address}</TableCell>
-                          {/* <TableCell><Grid item xs={12}>
-                            <TextField
-                              label="Quantity"
-                              variant="outlined"
-                              value={user.Quantity}
-                            // onChange={onChangeQ(user._id)}
-                            />
-                          </Grid></TableCell> */}
-                          {/* <TableCell><Button variant="contained" color="success" onClick={() => { { update(user._id) } }}>
-                            Enter_Quantity
-                          </Button></TableCell> */}
-                          <TableCell><Button variant="contained" color="success" onClick={() => {
-                            { Addtoorders(user._id) };
+                          <TableCell> <Button variant="contained" color="success" onClick={() => {
+                            { Addtofav(user.name) };
                             // { navigate("/myorders") }
                           }}>
-                            Enter_Quantity
+                            Add_to_Fav
                           </Button></TableCell>
-                          <TableCell><Button variant="contained" color="success" onClick={() => {
+
+                          <TableCell>
+                            {(() => {
+
+                              if (user.opening < currenttime && user.closing > currenttime) {
+
+
+                                return (
+                                  <Button variant="contained" color="success" onClick={() => {
+                                    { Addtoorders(user._id) };
+                                    // { navigate("/myorders") }
+                                  }}>
+                                    Enter_Quantity
+                                  </Button>
+
+                                )
+                              }
+                              else {
+                                return (
+                                  <Button variant="contained" color="error" onClick={() => {
+
+                                  }}>
+                                    Unavailable
+                                  </Button>
+
+                                )
+                              }
+
+                            })()}
+
+                          </TableCell>
+                          <TableCell><Button variant="contained" color="success" endIcon={<SendIcon />} onClick={() => {
                             {
                               AddtoSchema()
                             };

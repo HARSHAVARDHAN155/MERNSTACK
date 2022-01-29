@@ -37,6 +37,10 @@ const Buyer = new Schema({
 	date:{
 		type: Date,
 		required: false
+	},
+	fav :{
+		type:Array,
+		required:false
 	}
 });
 
